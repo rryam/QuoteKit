@@ -7,30 +7,6 @@
 
 import Foundation
 
-public enum QuotesSortType: String {
-    case dateAdded
-    case dateModified
-    case author
-    case content
-}
-
-public enum QuotableListOrder: String {
-    case ascending = "asc"
-    case descending = "desc"
-}
-
-public enum AuthorsAndTagsSortType: String {
-    case dateAdded
-    case dateModified
-    case name
-    case quoteCount
-}
-
-public enum URLQueryItemListType {
-    case all
-    case either
-}
-
 public extension URLQueryItem {
     static func maxLength(_ length: Int) -> Self {
         URLQueryItem(name: "maxLength", value: String(length))
@@ -89,5 +65,9 @@ public extension URLQueryItem {
     
     static func order(_ order: QuotableListOrder) -> Self {
         URLQueryItem(name: "order", value: order.rawValue)
+    }
+    
+    static func search(_ query: String) -> Self {
+        URLQueryItem(name: "query", value: query)
     }
 }

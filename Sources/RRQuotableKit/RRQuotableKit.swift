@@ -144,3 +144,27 @@ public extension RRQuotableKit {
         return try await execute(with: QuotableEndpoint(.tags, queryItems: queryItems))
     }
 }
+
+// MARK: - SEARCH APIS
+public extension RRQuotableKit {
+    static func searchQuotes(for query: String, limit: Int = 20, page: Int = 1) async throws -> Quotes? {
+        try await search(path: .searchQuotes, query: query, limit: limit, page: page)
+    }
+  
+    static func searchAuthors(for query: String, limit: Int = 20, page: Int = 1) async throws -> Authors? {
+        try await search(path: .searchAuthors, query: query, limit: limit, page: page)
+    }
+    
+    private static func search<Model: Decodable>(path: QuotableEndpointPath,
+                                                 query: String,
+                                                 limit: Int = 20,
+                                                 page: Int = 1) async throws -> Model {
+        var queryItems: [URLQueryItem]?
+        
+        queryItems?.append(.search(query))
+        queryItems?.append(.limit(limit))
+        queryItems?.append(.page(page))
+        
+        return try await execute(with: QuotableEndpoint(path, queryItems: queryItems))
+    }
+}

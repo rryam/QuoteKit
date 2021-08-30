@@ -15,6 +15,8 @@ enum QuotableEndpointPath: CustomStringConvertible {
     case quote(String)
     case author(String)
     case authorProfile(Int, String)
+    case searchQuotes
+    case searchAuthors
     
     var description: String {
         switch self {
@@ -25,6 +27,8 @@ enum QuotableEndpointPath: CustomStringConvertible {
             case .quote(let id): return "quotes/\(id)"
             case .author(let id): return "authors/\(id)"
             case .authorProfile(let size, let slug): return "profile/\(size)/\(slug).jpg"
+            case .searchQuotes: return "search/quotes"
+            case .searchAuthors: return "search/authors"
         }
     }
 }
