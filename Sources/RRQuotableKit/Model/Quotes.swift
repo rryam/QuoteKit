@@ -7,4 +7,4 @@
 
 import Foundation
 
-typealias Quotes = QuotableItems<Quote>
+public typealias Quotes = QuotableItems<Quote>

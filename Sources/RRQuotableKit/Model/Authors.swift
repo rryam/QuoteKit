@@ -7,4 +7,4 @@
 
 import Foundation
 
-typealias Authors = QuotableItems<Author>
+public typealias Authors = QuotableItems<Author>

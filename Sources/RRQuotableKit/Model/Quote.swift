@@ -7,15 +7,26 @@
 
 import Foundation
 
-struct Quote: Codable, Identifiable {
-    let id: String
-    let tags: [TagType]
-    let content: String
-    let author: String
-    let authorSlug: String
-    let length: Int
-    let dateAdded: String
-    let dateModified: String
+public struct Quote: Codable, Identifiable {
+    public var id: String
+    public var tags: [TagType]
+    public var content: String
+    public var author: String
+    public var authorSlug: String
+    public var length: Int
+    public var dateAdded: String
+    public var dateModified: String
+    
+    public init(id: String, tags: [TagType], content: String, author: String, authorSlug: String, length: Int, dateAdded: String, dateModified: String) {
+        self.id = id
+        self.tags = tags
+        self.content = content
+        self.author = author
+        self.authorSlug = authorSlug
+        self.length = length
+        self.dateAdded = dateAdded
+        self.dateModified = dateModified
+    }
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"

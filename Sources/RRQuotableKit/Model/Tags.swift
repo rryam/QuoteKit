@@ -7,9 +7,9 @@
 
 import Foundation
 
-typealias Tags = [Tag]
+public typealias Tags = [Tag]
 
-enum TagType: String, Codable {
+public enum TagType: String, Codable {
     case business
     case education
     case faith
@@ -31,7 +31,7 @@ enum TagType: String, Codable {
     case technology
     case wisdom
     
-    var name: String {
+    public var name: String {
         switch self {
             case .famousQuotes: return "famous-quotes"
             default: return rawValue
@@ -39,13 +39,22 @@ enum TagType: String, Codable {
     }
 }
 
-struct Tag: Codable, Identifiable {
-    let id: String
-    let name: String
-    let dateAdded: String
-    let dateModified: String
-    let v: Int
-    let quoteCount: Int
+public struct Tag: Codable, Identifiable {
+    public var id: String
+    public var name: String
+    public var dateAdded: String
+    public var dateModified: String
+    public var v: Int
+    public var quoteCount: Int
+    
+    public init(id: String, name: String, dateAdded: String, dateModified: String, v: Int, quoteCount: Int) {
+        self.id = id
+        self.name = name
+        self.dateAdded = dateAdded
+        self.dateModified = dateModified
+        self.v = v
+        self.quoteCount = quoteCount
+    }
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"

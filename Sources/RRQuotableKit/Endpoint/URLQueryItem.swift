@@ -7,31 +7,31 @@
 
 import Foundation
 
-enum QuotesSortType: String {
+public enum QuotesSortType: String {
     case dateAdded
     case dateModified
     case author
     case content
 }
 
-enum QuotableListOrder: String {
+public enum QuotableListOrder: String {
     case ascending = "asc"
     case descending = "desc"
 }
 
-enum AuthorsAndTagsSortType: String {
+public enum AuthorsAndTagsSortType: String {
     case dateAdded
     case dateModified
     case name
     case quoteCount
 }
 
-enum URLQueryItemListType {
+public enum URLQueryItemListType {
     case all
     case either
 }
 
-extension URLQueryItem {
+public extension URLQueryItem {
     static func maxLength(_ length: Int) -> Self {
         URLQueryItem(name: "maxLength", value: String(length))
     }

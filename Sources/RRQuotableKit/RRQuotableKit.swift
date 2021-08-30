@@ -12,7 +12,7 @@ public struct RRQuotableKit {
 }
 
 // MARK: - QUOTES APIS
-extension RRQuotableKit {
+public extension RRQuotableKit {
     static func quote(id: String) async throws -> Quote? {
         try await execute(with: QuotableEndpoint(.quote(id)))
     }
@@ -90,7 +90,7 @@ extension RRQuotableKit {
 }
 
 // MARK: - AUTHORS APIS
-extension RRQuotableKit {
+public extension RRQuotableKit {
     static func authorProfile(size: Int = 700, slug: String) -> URL {
         QuotableEndpoint(.authorProfile(size, slug), host: .images).url
     }
@@ -127,7 +127,7 @@ extension RRQuotableKit {
 }
 
 // MARK: - TAGS APIS
-extension RRQuotableKit {
+public extension RRQuotableKit {
     static func tags(sortBy: AuthorsAndTagsSortType? = nil,
                      order: QuotableListOrder? = nil) async throws -> Tags? {
         
