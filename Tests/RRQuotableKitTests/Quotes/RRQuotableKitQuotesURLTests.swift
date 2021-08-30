@@ -70,4 +70,9 @@ final class RRQuotableKitQuotesURLTests: XCTestCase {
         let url = QuotableEndpoint(.quotes, queryItems: [.limit(50), .page(2)]).url
         try XCTAssertEqual(url, host.expectedURL(with: "quotes?limit=50&page=2"))
     }
+    
+    func testURLforSearchQuotes() {
+        let url = QuotableEndpoint(.searchQuotes, queryItems: [.search("love")]).url
+        try XCTAssertEqual(url, host.expectedURL(with: "search/quotes?query=love"))
+    }
 }

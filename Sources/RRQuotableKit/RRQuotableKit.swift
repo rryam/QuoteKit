@@ -26,33 +26,33 @@ public extension RRQuotableKit {
                        limit: Int = 20,
                        page: Int = 1) async throws -> Quotes? {
         
-        var queryItems: [URLQueryItem]?
-        
-        queryItems?.append(.limit(limit))
-        queryItems?.append(.page(page))
+        var queryItems: [URLQueryItem] = []
+
+        queryItems.append(.limit(limit))
+        queryItems.append(.page(page))
         
         if let minLength = minLength {
-            queryItems?.append(.minLength(minLength))
+            queryItems.append(.minLength(minLength))
         }
         
         if let maxLength = maxLength {
-            queryItems?.append(.maxLength(maxLength))
+            queryItems.append(.maxLength(maxLength))
         }
         
         if let tags = tags {
-            queryItems?.append(.tags(tags))
+            queryItems.append(.tags(tags))
         }
         
         if let authors = authors {
-            queryItems?.append(.authors(authors))
+            queryItems.append(.authors(authors))
         }
         
         if let sortBy = sortBy {
-            queryItems?.append(.sortBy(sortBy))
+            queryItems.append(.sortBy(sortBy))
         }
         
         if let order = order {
-            queryItems?.append(.order(order))
+            queryItems.append(.order(order))
         }
         
         return try await execute(with: QuotableEndpoint(.quotes, queryItems: queryItems))
@@ -67,22 +67,22 @@ public extension RRQuotableKit {
                             tags: [TagType]? = nil,
                             authors: [String]? = nil) async throws -> Quote? {
         
-        var queryItems: [URLQueryItem]?
-        
+        var queryItems: [URLQueryItem] = []
+
         if let minLength = minLength {
-            queryItems?.append(.minLength(minLength))
+            queryItems.append(.minLength(minLength))
         }
         
         if let maxLength = maxLength {
-            queryItems?.append(.maxLength(maxLength))
+            queryItems.append(.maxLength(maxLength))
         }
         
         if let tags = tags {
-            queryItems?.append(.tags(tags))
+            queryItems.append(.tags(tags))
         }
         
         if let authors = authors {
-            queryItems?.append(.authors(authors))
+            queryItems.append(.authors(authors))
         }
         
         return try await execute(with: QuotableEndpoint(.randomQuote, queryItems: queryItems))
@@ -105,21 +105,21 @@ public extension RRQuotableKit {
                         limit: Int = 20,
                         page: Int = 1) async throws -> Authors? {
         
-        var queryItems: [URLQueryItem]?
-        
-        queryItems?.append(.limit(limit))
-        queryItems?.append(.page(page))
+        var queryItems: [URLQueryItem] = []
+
+        queryItems.append(.limit(limit))
+        queryItems.append(.page(page))
         
         if let slugs = slugs {
-            queryItems?.append(.slugs(slugs))
+            queryItems.append(.slugs(slugs))
         }
         
         if let sortBy = sortBy {
-            queryItems?.append(.sortBy(sortBy))
+            queryItems.append(.sortBy(sortBy))
         }
         
         if let order = order {
-            queryItems?.append(.order(order))
+            queryItems.append(.order(order))
         }
         
         return try await execute(with: QuotableEndpoint(.authors, queryItems: queryItems))
@@ -131,14 +131,14 @@ public extension RRQuotableKit {
     static func tags(sortBy: AuthorsAndTagsSortType? = nil,
                      order: QuotableListOrder? = nil) async throws -> Tags? {
         
-        var queryItems: [URLQueryItem]?
-        
+        var queryItems: [URLQueryItem] = []
+
         if let sortBy = sortBy {
-            queryItems?.append(.sortBy(sortBy))
+            queryItems.append(.sortBy(sortBy))
         }
         
         if let order = order {
-            queryItems?.append(.order(order))
+            queryItems.append(.order(order))
         }
         
         return try await execute(with: QuotableEndpoint(.tags, queryItems: queryItems))
@@ -155,16 +155,13 @@ public extension RRQuotableKit {
         try await search(path: .searchAuthors, query: query, limit: limit, page: page)
     }
     
-    private static func search<Model: Decodable>(path: QuotableEndpointPath,
-                                                 query: String,
-                                                 limit: Int = 20,
-                                                 page: Int = 1) async throws -> Model {
-        var queryItems: [URLQueryItem]?
+    private static func search<Model: Decodable>(path: QuotableEndpointPath, query: String, limit: Int = 20, page: Int = 1) async throws -> Model {
+        var queryItems: [URLQueryItem] = []
         
-        queryItems?.append(.search(query))
-        queryItems?.append(.limit(limit))
-        queryItems?.append(.page(page))
-        
+        queryItems.append(.search(query))
+        queryItems.append(.limit(limit))
+        queryItems.append(.page(page))
+                        
         return try await execute(with: QuotableEndpoint(path, queryItems: queryItems))
     }
 }

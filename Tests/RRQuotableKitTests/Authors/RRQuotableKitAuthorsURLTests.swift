@@ -60,4 +60,9 @@ final class RRQuotableKitAuthorsURLTests: XCTestCase {
         let url = QuotableEndpoint(.authors, queryItems: [.limit(50), .page(2)]).url
         try XCTAssertEqual(url, host.expectedURL(with: "authors?limit=50&page=2"))
     }
+    
+    func testURLforSearchAuthors() {
+        let url = QuotableEndpoint(.searchAuthors, queryItems: [.search("kalam")]).url
+        try XCTAssertEqual(url, host.expectedURL(with: "search/authors?query=kalam"))
+    }
 }
