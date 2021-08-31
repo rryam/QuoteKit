@@ -18,4 +18,4 @@ jobs:
     - name: Build
       run: swift build -v
     - name: Run tests
-      run: xcodebuild -scheme RRQuotableKit -destination 'platform:iOS Simulator, OS:15.0, name:iPhone 12' test | xcpretty
+      run: xcodebuild -scheme RRQuotableKit -destination 'platform=iOS Simulator, OS=15.0, name=iPhone 12' test | xcpretty
