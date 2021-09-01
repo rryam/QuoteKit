@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="(https://github.com/rudrankriyam/RRQuotableKit/blob/main/RRQuotableKit_Logo.png" />
+  <img src= "https://github.com/rudrankriyam/RRQuotableKit/blob/main/RRQuotableKit_Logo.png" />
 </p>
 
 # RRQuotableKit
