@@ -39,7 +39,7 @@ do {
 
 The examples given below are similar to the ones in Quotable's [README.](https://github.com/lukePeavey/quotable/blob/master/README.md)
 
-### Random Quote
+## Random Quote
 
 Returns a single random `Quote` object from the `/random` API. 
 
@@ -82,7 +82,7 @@ Random Quote by the author "Aesop" and "Stephen Hawking" -
 try await RRQuotableKit.randomQuote(authors: ["aesop", "stephen-hawking"])
 ```
 
-### List Quotes 
+## List Quotes 
 
 Returns the `Quotes` object based on the given queries from the `/quotes` API. By default, the list contains 20 `Quote` in one page.
 
@@ -145,4 +145,99 @@ Get all quotes sorted by content, in descending order -
 
 ```swift 
 try await RRQuotableKit.quotes(sortBy: .content, order: .descending)
+```
+
+## Quote By ID 
+
+If there is one, return a single `Quote` object for the given id from the `/quotes/:id` API.
+
+```swift 
+var quote: Quote?
+quote = try await RRQuotableKit.quote(id: "2xpHvSOQMD")
+```
+
+## List Authors
+ 
+ Returns the `Authors` object matching the given queries from the `/authors` API. By default, the list contains 20 `Author` in one page. You can filter multiple authors by providing their slugs in the query parameter.
+ 
+ ```swift 
+var authors: Authors?
+authors = try await RRQuotableKit.authors()
+```
+
+Few examples:
+
+Get the first page of authors, with 20 results per page -
+
+```swift 
+try await RRQuotableKit.authors(page: 1)
+```
+
+Get the second page of authors, with 20 results per page, with a limit of 10 authors -
+
+```swift 
+try await RRQuotableKit.authors(limit: 10, page: 2)
+```
+
+Get all authors, sorted alphabetically by name -
+
+```swift 
+try await RRQuotableKit.authors(sortBy: .name)
+```
+
+Get all authors, sorted by number of quotes in descending order -
+
+```swift 
+try await RRQuotableKit.authors(sortBy: .quoteCount, order: .descending)
+```
+
+Get a single author by slug -
+
+```swift 
+try await RRQuotableKit.authors(slugs: ["albert-einstein"])
+```
+
+Get multiple authors by slug -
+
+```swift 
+try await RRQuotableKit.authors(slugs: ["albert-einstein", "abraham-lincoln"])
+```
+
+## Author By ID 
+
+If there is one, return a single `Author` object for the given id from the `/authors/:id` API.
+
+```swift 
+var author: Author?
+author = try await RRQuotableKit.author(id: "XYxYtSeixS-o")
+```
+
+## Author Profile
+
+Returns the image URL for given author slug. You can specify the image size as well. The default image size is 700x700. 
+
+```swift 
+var authorImageURL: URL?
+authorImageURL = RRQuotableKit.authorProfile(size: 1000, slug: "aesop")
+```
+
+## List Tags 
+
+Returns the `Tags` object containing the list of all tags from the `/tags` API. You can sort it and order the sorted results.
+
+```swift 
+var tags: Tags?
+tags = try await RRQuotableKit.tags()
+```
+
+Get all tags, sorted alphabetically by name -
+
+```swift 
+try await RRQuotableKit.tags(sortBy: .name)
+```
+
+Get all tags, sorted by number of quotes in descending order -
+
+```swift 
+try await RRQuotableKit.tags(sortBy: .quoteCount, order: .descending)
 ```
