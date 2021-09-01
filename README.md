@@ -23,6 +23,7 @@ The RRQuotableKit is a Swift framework to use the free APIs provided by [Quotabl
   - [List Tags](#list-tags)
   - [Search Quotes](#search-quotes)
   - [Search Authors](#search-authors)
+- [Data Models](#data-models)
 
 ## Requirements
 
@@ -298,4 +299,61 @@ Get the second page of searched authors, with 20 results per page, with a limit 
 try await RRQuotableKit.searchAuthors(for: "kalam", limit: 10, page: 2)
 ```
 
-More documentation about the data models coming soon!
+## Data Models 
+
+There are many different data models for using this framework. 
+
+- `Quote`
+
+The object represents a single quote. You can get the content of the quote using the `content` variable. The `tags` is an array of the relevant tag associated with the quote. To get the number of characters in the quote, use `length.`
+
+```swift 
+struct Quote: Decodable, Identifiable {
+    var id: String
+    var tags: [TagType]
+    var content: String
+    var author: String
+    var authorSlug: String
+    var length: Int
+    var dateAdded: String
+    var dateModified: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case tags, content, author, authorSlug, length, dateAdded, dateModified
+    }
+}
+```
+
+- `Author`
+
+The object represents a single author. You can get the link to their Wikipedia page or their official website using `link.` `bio` contains a brief, one paragraph about the author. Use' description' instead to get a shorter description of the person's occupation or what they're known for. `quotes` contains an array of the author's quote.
+
+```swift
+struct Author: Decodable, Identifiable {
+    var id: String
+    var link: String
+    var bio: String
+    var description: String
+    var name: String
+    var quoteCount: Int
+    var slug: String
+    var dateAdded: String
+    var dateModified: String
+    var quotes: [Quote]?
+    
+    enum CodingKeys: String, CodingKey {
+        case link, bio, description
+        case id = "_id"
+        case name, quoteCount, slug
+        case dateAdded, dateModified
+        case quotes
+    }
+}
+
+extension Author: Equatable {
+    static func ==(lhs: Author, rhs: Author) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+```

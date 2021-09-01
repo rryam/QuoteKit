@@ -30,6 +30,6 @@ public struct Author: Decodable, Identifiable {
 
 extension Author: Equatable {
     public static func ==(lhs: Author, rhs: Author) -> Bool {
-        return lhs.id == rhs.id
+        lhs.id == rhs.id
     }
 }
