@@ -22,7 +22,7 @@ public extension RRQuotableKit {
                        tags: [TagType]? = nil,
                        type: URLQueryItemListType = .all,
                        authors: [String]? = nil,
-                       sortBy: AuthorsAndTagsSortType? = nil,
+                       sortBy: QuotesSortType? = nil,
                        order: QuotableListOrder? = nil,
                        limit: Int = 20,
                        page: Int = 1) async throws -> Quotes? {
@@ -49,7 +49,7 @@ public extension RRQuotableKit {
         }
         
         if let sortBy = sortBy {
-            queryItems.append(.sortBy(sortBy))
+            queryItems.append(.sortQuotesBy(sortBy))
         }
         
         if let order = order {

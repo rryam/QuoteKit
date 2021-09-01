@@ -37,6 +37,8 @@ do {
 }
 ```
 
+The examples given below are similar to the ones in Quotable's [README.](https://github.com/lukePeavey/quotable/blob/master/README.md)
+
 ### Random Quote
 
 Returns a single random `Quote` object from the `/random` API. 
@@ -48,34 +50,99 @@ randomQuote = try await RRQuotableKit.randomQuote()
 
 You can customise the request by adding query parameters like minimum and maximum length of the quote or the tag associated with it. You can also get a random quote by a specific author(s).
 
-Few examples - 
+Few examples:
 
 Random Quote with tags "technology" AND "famous-quotes" - 
 
 ```swift
-randomQuote = try await RRQuotableKit.randomQuote(tags: [.technology, .famousQuotes], type: .all)
+try await RRQuotableKit.randomQuote(tags: [.technology, .famousQuotes], type: .all)
 ```
 
-Random Quote with tags "History" OR "Civil Rights"
+Random Quote with tags "History" OR "Civil Rights" -
 
 ```swift
-randomQuote = try await RRQuotableKit.randomQuote(tags: [.history, .civilRights], type: .either)
+try await RRQuotableKit.randomQuote(tags: [.history, .civilRights], type: .either)
 ```
 
-Random Quote with a maximum length of 50 characters
+Random Quote with a maximum length of 50 characters -
 
 ```swift
-randomQuote = try await RRQuotableKit.randomQuote(maxLength: 150)
+try await RRQuotableKit.randomQuote(maxLength: 150)
 ```
 
-Random Quote with a length between 100 and 140 characters
+Random Quote with a length between 100 and 140 characters -
 
 ```swift
-randomQuote = try await RRQuotableKit.randomQuote(minLength: 100, maxLength: 140)
+try await RRQuotableKit.randomQuote(minLength: 100, maxLength: 140)
 ```
 
-Random Quote by the author "Aesop" and "Stephen Hawking"
+Random Quote by the author "Aesop" and "Stephen Hawking" -
 
 ```swift
-randomQuote = try await RRQuotableKit.randomQuote(authors: ["aesop", "stephen-hawking"])
+try await RRQuotableKit.randomQuote(authors: ["aesop", "stephen-hawking"])
+```
+
+### List Quotes 
+
+Returns the `Quotes` object based on the given queries from the `/quotes` API. By default, the list contains 20 `Quote` in one page.
+
+```swift 
+var quotes: Quotes?
+quotes = try await RRQuotableKit.quotes()
+```
+
+Few examples:
+
+Get all quotes with a maximum length of 50 characters -
+
+```swift
+try await RRQuotableKit.quotes(maxLength: 150)
+```
+
+Get all quotes with a length between 100 and 140 characters -
+
+```swift
+try await RRQuotableKit.quotes(minLength: 100, maxLength: 140)
+```
+
+Get the first page of quotes, with 20 results per page -
+
+```swift 
+try await RRQuotableKit.quotes(page: 1)
+```
+
+Get the second page of quotes, with 20 results per page, with a limit of 10 quotes -
+
+```swift 
+try await RRQuotableKit.quotes(limit: 10, page: 2)
+```
+
+Get all quotes with the tags love OR happiness -
+
+```swift 
+try await RRQuotableKit.quotes(tags: [.love, .happiness], type: .either)
+```
+
+Get all quotes with the tags technology AND famous-quotes -
+
+```swift 
+try await RRQuotableKit.quotes(tags: [.technology, .famousQuotes], type: .all)
+```
+
+Get all quotes by author, using the author's slug -
+
+```swift 
+try await RRQuotableKit.quotes(authors: ["albert-einstein"])
+```
+
+Get all quotes sorted by author -
+
+```swift 
+try await RRQuotableKit.quotes(sortBy: .author)
+```
+
+Get all quotes sorted by content, in descending order -
+
+```swift 
+try await RRQuotableKit.quotes(sortBy: .content, order: .descending)
 ```
