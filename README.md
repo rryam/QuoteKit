@@ -241,3 +241,45 @@ Get all tags, sorted by number of quotes in descending order -
 ```swift 
 try await RRQuotableKit.tags(sortBy: .quoteCount, order: .descending)
 ```
+
+## Search Quotes 
+
+Returns the `Quotes` object based on the search query from the `/search/quotes` API. By default, the list contains 20 `Quote` in one page.
+
+```swift 
+var quotes: Quotes?
+quotes = try await RRQuotableKit.searchQuotes(for: "love")
+```
+
+Get the first page of searched quotes, with 20 results per page -
+
+```swift 
+try await RRQuotableKit.searchQuotes(for: "love", page: 1)
+```
+
+Get the second page of searched quotes, with 20 results per page, with a limit of 10 quotes -
+
+```swift 
+try await RRQuotableKit.searchQuotes(for: "love", limit: 10, page: 2)
+```
+
+## Search Authors 
+
+Returns the `Authors` object based on the search query from the `/search/authors` API. By default, the list contains 20 `Author` in one page.
+
+```swift 
+var quotes: Quotes?
+quotes = try await RRQuotableKit.searchAuthors(for: "kalam")
+```
+
+Get the first page of searched authors, with 20 results per page -
+
+```swift 
+try await RRQuotableKit.searchAuthors(for: "kalam", page: 1)
+```
+
+Get the second page of searched authors, with 20 results per page, with a limit of 10 authors -
+
+```swift 
+try await RRQuotableKit.searchAuthors(for: "kalam", limit: 10, page: 2)
+```
