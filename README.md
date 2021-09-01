@@ -7,8 +7,20 @@
 ![GitHub branch checks state](https://img.shields.io/github/checks-status/rudrankriyam/RRQuotableKit/main)
 ![Twitter Follow](https://img.shields.io/twitter/follow/rudrankriyam?style=social)
 
+The RRQuotableKit is a Swift framework to use the free APIs provided by [Quotable](https://github.com/lukePeavey/quotable)created by [Luke Peavey](https://github.com/lukePeavey). It uses the latest async/await syntax for easy access and contains all the APIs like fetching a random quote, all quotes, authors, tags and searching quotes and authors.
 
-The RRQuotableKit is a Swift framework to use the free APIs provided by [Quotable](https://github.com/lukePeavey/quotable). It uses the latest async/await syntax for easy access and contains all the APIs like fetching a random quote, all quotes, authors, tags and searching quotes and authors.
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Random Quote](#random-quote)
+  - [List Quotes](#list-quotes)
+  - [Quote By ID](#quote-by-id)
+  - [List Authors](#list-authors)
+  - [Author By ID](#author-by-id)
+  - [Author Profile Image URL](#author-profile-image-url)
+  - [List Tags](#list-tags)
+  - [Search Quotes](#search-quotes)
+  - [Search Authors](#search-authors)
 
 ## Requirements
 
@@ -212,7 +224,7 @@ var author: Author?
 author = try await RRQuotableKit.author(id: "XYxYtSeixS-o")
 ```
 
-## Author Profile
+## Author Profile Image URL
 
 Returns the image URL for given author slug. You can specify the image size as well. The default image size is 700x700. 
 
@@ -283,3 +295,5 @@ Get the second page of searched authors, with 20 results per page, with a limit 
 ```swift 
 try await RRQuotableKit.searchAuthors(for: "kalam", limit: 10, page: 2)
 ```
+
+More documentation about the data models coming soon!
