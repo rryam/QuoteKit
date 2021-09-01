@@ -20,6 +20,7 @@ public extension RRQuotableKit {
     static func quotes(minLength: Int? = nil,
                        maxLength: Int? = nil,
                        tags: [TagType]? = nil,
+                       type: URLQueryItemListType = .all,
                        authors: [String]? = nil,
                        sortBy: AuthorsAndTagsSortType? = nil,
                        order: QuotableListOrder? = nil,
@@ -40,7 +41,7 @@ public extension RRQuotableKit {
         }
         
         if let tags = tags {
-            queryItems.append(.tags(tags))
+            queryItems.append(.tags(tags, type))
         }
         
         if let authors = authors {
@@ -65,6 +66,7 @@ public extension RRQuotableKit {
     static func randomQuote(minLength: Int? = nil,
                             maxLength: Int? = nil,
                             tags: [TagType]? = nil,
+                            type: URLQueryItemListType = .all,
                             authors: [String]? = nil) async throws -> Quote? {
         
         var queryItems: [URLQueryItem] = []
@@ -78,7 +80,7 @@ public extension RRQuotableKit {
         }
         
         if let tags = tags {
-            queryItems.append(.tags(tags))
+            queryItems.append(.tags(tags, type))
         }
         
         if let authors = authors {

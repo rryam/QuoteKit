@@ -21,9 +21,9 @@ public extension URLQueryItem {
         
         switch type {
             case .all:
-                tagsValue = tags.map { $0.name }.joined(separator: ",")
+                tagsValue = tags.map { $0.rawValue }.joined(separator: ",")
             case .either:
-                tagsValue = tags.map { $0.name }.joined(separator: "|")
+                tagsValue = tags.map { $0.rawValue }.joined(separator: "|")
         }
         
         return URLQueryItem(name: "tags", value: tagsValue)

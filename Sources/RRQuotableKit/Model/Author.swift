@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Author: Codable, Identifiable {
+public struct Author: Decodable, Identifiable {
     public var id: String
     public var link: String
     public var bio: String
@@ -18,19 +18,6 @@ public struct Author: Codable, Identifiable {
     public var dateAdded: String
     public var dateModified: String
     public var quotes: [Quote]?
-    
-    public init(link: String, bio: String, description: String, id: String, name: String, quoteCount: Int, slug: String, dateAdded: String, dateModified: String, quotes: [Quote]?) {
-        self.link = link
-        self.bio = bio
-        self.description = description
-        self.id = id
-        self.name = name
-        self.quoteCount = quoteCount
-        self.slug = slug
-        self.dateAdded = dateAdded
-        self.dateModified = dateModified
-        self.quotes = quotes
-    }
     
     enum CodingKeys: String, CodingKey {
         case link, bio, description
