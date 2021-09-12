@@ -327,7 +327,7 @@ struct Quote: Decodable, Identifiable {
 
 - `Author`
 
-The object represents a single author. You can get the link to their Wikipedia page or their official website using `link.` `bio` contains a brief, one paragraph about the author. Use' description' instead to get a shorter description of the person's occupation or what they're known for. `quotes` contains an array of the author's quote.
+The object represents a single author. You can get the link to their Wikipedia page or their official website using `link.` `bio` contains a brief, one paragraph about the author. Use `description` instead to get a shorter description of the person's occupation or what they're known for. `quotes` contains an array of the author's quote.
 
 ```swift
 struct Author: Decodable, Identifiable {

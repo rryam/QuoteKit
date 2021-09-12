@@ -9,30 +9,6 @@ import Foundation
 
 public typealias Tags = [Tag]
 
-public enum TagType: String, Decodable {
-    case business
-    case civilRights = "civil-rights"
-    case education
-    case faith
-    case famousQuotes = "famous-quotes"
-    case friendship
-    case future
-    case happiness
-    case history
-    case inspirational
-    case life
-    case literature
-    case love
-    case nature
-    case politics
-    case proverb
-    case religion
-    case science
-    case success
-    case technology
-    case wisdom
-}
-
 public struct Tag: Decodable, Identifiable {
     public var id: String
     public var name: String

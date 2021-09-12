@@ -26,6 +26,19 @@ public struct Author: Decodable, Identifiable {
         case dateAdded, dateModified
         case quotes
     }
+    
+    public init(id: String, link: String, bio: String, description: String, name: String, quoteCount: Int, slug: String, dateAdded: String, dateModified: String, quotes: [Quote]? = nil) {
+        self.id = id
+        self.link = link
+        self.bio = bio
+        self.description = description
+        self.name = name
+        self.quoteCount = quoteCount
+        self.slug = slug
+        self.dateAdded = dateAdded
+        self.dateModified = dateModified
+        self.quotes = quotes
+    }
 }
 
 extension Author: Equatable {

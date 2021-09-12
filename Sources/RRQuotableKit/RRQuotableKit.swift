@@ -93,7 +93,7 @@ public extension RRQuotableKit {
 
 // MARK: - AUTHORS APIS
 public extension RRQuotableKit {
-    static func authorProfile(size: Int = 700, slug: String) -> URL {
+    static func authorImage(with slug: String, size: Int = 700) -> URL {
         QuotableEndpoint(.authorProfile(size, slug), host: .images).url
     }
     

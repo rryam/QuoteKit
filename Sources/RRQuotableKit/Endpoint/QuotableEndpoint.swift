@@ -26,7 +26,7 @@ extension QuotableEndpoint {
         components.host = host.rawValue
         components.path = "/" + path.description
         
-        if let queryItems = queryItems {
+        if let queryItems = queryItems, !queryItems.isEmpty {
             components.queryItems = queryItems
         }
         
