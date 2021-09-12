@@ -1,5 +1,5 @@
 <p align="center">
-  <img src= "https://github.com/rudrankriyam/QuoteKit/blob/main/QuoteKit_Logo.png" />
+  <img src= "https://github.com/rudrankriyam/QuoteKit/blob/main/QuoteKit_Logo.png" alt="QuoteKit Logo" width="256"/>
 </p>
 
 # QuoteKit
