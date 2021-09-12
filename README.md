@@ -1,13 +1,12 @@
 <p align="center">
-  <img src= "https://github.com/rudrankriyam/RRQuotableKit/blob/main/RRQuotableKit_Logo.png" />
+  <img src= "https://github.com/rudrankriyam/QuoteKit/blob/main/QuoteKit_Logo.png" />
 </p>
 
-# RRQuotableKit
+# QuoteKit
 
-![GitHub branch checks state](https://img.shields.io/github/checks-status/rudrankriyam/RRQuotableKit/main)
 ![Twitter Follow](https://img.shields.io/twitter/follow/rudrankriyam?style=social)
 
-The RRQuotableKit is a Swift framework to use the free APIs provided by [Quotable](https://github.com/lukePeavey/quotable) created by [Luke Peavey](https://github.com/lukePeavey). It uses the latest async/await syntax for easy access and contains all the APIs like fetching a random quote, all quotes, authors, tags and searching quotes and authors.
+The QuoteKit is a Swift framework to use the free APIs provided by [Quotable](https://github.com/lukePeavey/quotable) created by [Luke Peavey](https://github.com/lukePeavey). It uses the latest async/await syntax for easy access and contains all the APIs like fetching a random quote, all quotes, authors, tags and searching quotes and authors.
 
 > Note: This framework is still in beta. 
 
@@ -31,22 +30,22 @@ As it uses the async/await feature of Swift 5.5, the platforms currently support
 
 ## Installation
 
-To add RRQuotableKit in your project, the best way is via the Swift Package Manager. 
+To add QuoteKit in your project, the best way is via the Swift Package Manager. 
 
 ```
 dependencies: [
-    .package(url: "https://github.com/rudrankriyam/RRQuotableKit.git")
+    .package(url: "https://github.com/rudrankriyam/QuoteKit.git")
 ]
 ```
 
 ## Usage 
 
-The `struct RRQuotableKit` contains static methods you can call for fetching the revelant data. For example, to get the list of quotes - 
+The `struct QuoteKit` contains static methods you can call for fetching the revelant data. For example, to get the list of quotes - 
 
 ```swift 
 do {
     var quotes: Quotes?
-    quotes = try await RRQuotableKit.quotes()
+    quotes = try await QuoteKit.quotes()
 } catch {
     print(error)
 }
@@ -60,7 +59,7 @@ Returns a single random `Quote` object from the `/random` API.
 
 ```swift 
 var randomQuote: Quote?
-randomQuote = try await RRQuotableKit.randomQuote()
+randomQuote = try await QuoteKit.randomQuote()
 ```
 
 You can customise the request by adding query parameters like minimum and maximum length of the quote or the tag associated with it. You can also get a random quote by a specific author(s).
@@ -70,31 +69,31 @@ Few examples:
 Random Quote with tags "technology" AND "famous-quotes" - 
 
 ```swift
-try await RRQuotableKit.randomQuote(tags: [.technology, .famousQuotes], type: .all)
+try await QuoteKit.randomQuote(tags: [.technology, .famousQuotes], type: .all)
 ```
 
 Random Quote with tags "History" OR "Civil Rights" -
 
 ```swift
-try await RRQuotableKit.randomQuote(tags: [.history, .civilRights], type: .either)
+try await QuoteKit.randomQuote(tags: [.history, .civilRights], type: .either)
 ```
 
 Random Quote with a maximum length of 50 characters -
 
 ```swift
-try await RRQuotableKit.randomQuote(maxLength: 150)
+try await QuoteKit.randomQuote(maxLength: 150)
 ```
 
 Random Quote with a length between 100 and 140 characters -
 
 ```swift
-try await RRQuotableKit.randomQuote(minLength: 100, maxLength: 140)
+try await QuoteKit.randomQuote(minLength: 100, maxLength: 140)
 ```
 
 Random Quote by the author "Aesop" and "Stephen Hawking" -
 
 ```swift
-try await RRQuotableKit.randomQuote(authors: ["aesop", "stephen-hawking"])
+try await QuoteKit.randomQuote(authors: ["aesop", "stephen-hawking"])
 ```
 
 ## List Quotes 
@@ -103,7 +102,7 @@ Returns the `Quotes` object based on the given queries from the `/quotes` API. B
 
 ```swift 
 var quotes: Quotes?
-quotes = try await RRQuotableKit.quotes()
+quotes = try await QuoteKit.quotes()
 ```
 
 Few examples:
@@ -111,55 +110,55 @@ Few examples:
 Get all quotes with a maximum length of 50 characters -
 
 ```swift
-try await RRQuotableKit.quotes(maxLength: 150)
+try await QuoteKit.quotes(maxLength: 150)
 ```
 
 Get all quotes with a length between 100 and 140 characters -
 
 ```swift
-try await RRQuotableKit.quotes(minLength: 100, maxLength: 140)
+try await QuoteKit.quotes(minLength: 100, maxLength: 140)
 ```
 
 Get the first page of quotes, with 20 results per page -
 
 ```swift 
-try await RRQuotableKit.quotes(page: 1)
+try await QuoteKit.quotes(page: 1)
 ```
 
 Get the second page of quotes, with 20 results per page, with a limit of 10 quotes -
 
 ```swift 
-try await RRQuotableKit.quotes(limit: 10, page: 2)
+try await QuoteKit.quotes(limit: 10, page: 2)
 ```
 
 Get all quotes with the tags love OR happiness -
 
 ```swift 
-try await RRQuotableKit.quotes(tags: [.love, .happiness], type: .either)
+try await QuoteKit.quotes(tags: [.love, .happiness], type: .either)
 ```
 
 Get all quotes with the tags technology AND famous-quotes -
 
 ```swift 
-try await RRQuotableKit.quotes(tags: [.technology, .famousQuotes], type: .all)
+try await QuoteKit.quotes(tags: [.technology, .famousQuotes], type: .all)
 ```
 
 Get all quotes by author, using the author's slug -
 
 ```swift 
-try await RRQuotableKit.quotes(authors: ["albert-einstein"])
+try await QuoteKit.quotes(authors: ["albert-einstein"])
 ```
 
 Get all quotes sorted by author -
 
 ```swift 
-try await RRQuotableKit.quotes(sortBy: .author)
+try await QuoteKit.quotes(sortBy: .author)
 ```
 
 Get all quotes sorted by content, in descending order -
 
 ```swift 
-try await RRQuotableKit.quotes(sortBy: .content, order: .descending)
+try await QuoteKit.quotes(sortBy: .content, order: .descending)
 ```
 
 ## Quote By ID 
@@ -168,7 +167,7 @@ If there is one, return a single `Quote` object for the given id from the `/quot
 
 ```swift 
 var quote: Quote?
-quote = try await RRQuotableKit.quote(id: "2xpHvSOQMD")
+quote = try await QuoteKit.quote(id: "2xpHvSOQMD")
 ```
 
 ## List Authors
@@ -177,7 +176,7 @@ quote = try await RRQuotableKit.quote(id: "2xpHvSOQMD")
  
  ```swift 
 var authors: Authors?
-authors = try await RRQuotableKit.authors()
+authors = try await QuoteKit.authors()
 ```
 
 Few examples:
@@ -185,37 +184,37 @@ Few examples:
 Get the first page of authors, with 20 results per page -
 
 ```swift 
-try await RRQuotableKit.authors(page: 1)
+try await QuoteKit.authors(page: 1)
 ```
 
 Get the second page of authors, with 20 results per page, with a limit of 10 authors -
 
 ```swift 
-try await RRQuotableKit.authors(limit: 10, page: 2)
+try await QuoteKit.authors(limit: 10, page: 2)
 ```
 
 Get all authors, sorted alphabetically by name -
 
 ```swift 
-try await RRQuotableKit.authors(sortBy: .name)
+try await QuoteKit.authors(sortBy: .name)
 ```
 
 Get all authors, sorted by number of quotes in descending order -
 
 ```swift 
-try await RRQuotableKit.authors(sortBy: .quoteCount, order: .descending)
+try await QuoteKit.authors(sortBy: .quoteCount, order: .descending)
 ```
 
 Get a single author by slug -
 
 ```swift 
-try await RRQuotableKit.authors(slugs: ["albert-einstein"])
+try await QuoteKit.authors(slugs: ["albert-einstein"])
 ```
 
 Get multiple authors by slug -
 
 ```swift 
-try await RRQuotableKit.authors(slugs: ["albert-einstein", "abraham-lincoln"])
+try await QuoteKit.authors(slugs: ["albert-einstein", "abraham-lincoln"])
 ```
 
 ## Author By ID 
@@ -224,7 +223,7 @@ If there is one, return a single `Author` object for the given id from the `/aut
 
 ```swift 
 var author: Author?
-author = try await RRQuotableKit.author(id: "XYxYtSeixS-o")
+author = try await QuoteKit.author(id: "XYxYtSeixS-o")
 ```
 
 ## Author Profile Image URL
@@ -233,7 +232,7 @@ Returns the image URL for given author slug. You can specify the image size as w
 
 ```swift 
 var authorImageURL: URL?
-authorImageURL = RRQuotableKit.authorProfile(size: 1000, slug: "aesop")
+authorImageURL = QuoteKit.authorProfile(size: 1000, slug: "aesop")
 ```
 
 ## List Tags 
@@ -242,19 +241,19 @@ Returns the `Tags` object containing the list of all tags from the `/tags` API. 
 
 ```swift 
 var tags: Tags?
-tags = try await RRQuotableKit.tags()
+tags = try await QuoteKit.tags()
 ```
 
 Get all tags, sorted alphabetically by name -
 
 ```swift 
-try await RRQuotableKit.tags(sortBy: .name)
+try await QuoteKit.tags(sortBy: .name)
 ```
 
 Get all tags, sorted by number of quotes in descending order -
 
 ```swift 
-try await RRQuotableKit.tags(sortBy: .quoteCount, order: .descending)
+try await QuoteKit.tags(sortBy: .quoteCount, order: .descending)
 ```
 
 ## Search Quotes 
@@ -263,19 +262,19 @@ Returns the `Quotes` object based on the search query from the `/search/quotes` 
 
 ```swift 
 var quotes: Quotes?
-quotes = try await RRQuotableKit.searchQuotes(for: "love")
+quotes = try await QuoteKit.searchQuotes(for: "love")
 ```
 
 Get the first page of searched quotes, with 20 results per page -
 
 ```swift 
-try await RRQuotableKit.searchQuotes(for: "love", page: 1)
+try await QuoteKit.searchQuotes(for: "love", page: 1)
 ```
 
 Get the second page of searched quotes, with 20 results per page, with a limit of 10 quotes -
 
 ```swift 
-try await RRQuotableKit.searchQuotes(for: "love", limit: 10, page: 2)
+try await QuoteKit.searchQuotes(for: "love", limit: 10, page: 2)
 ```
 
 ## Search Authors 
@@ -284,19 +283,19 @@ Returns the `Authors` object based on the search query from the `/search/authors
 
 ```swift 
 var quotes: Quotes?
-quotes = try await RRQuotableKit.searchAuthors(for: "kalam")
+quotes = try await QuoteKit.searchAuthors(for: "kalam")
 ```
 
 Get the first page of searched authors, with 20 results per page -
 
 ```swift 
-try await RRQuotableKit.searchAuthors(for: "kalam", page: 1)
+try await QuoteKit.searchAuthors(for: "kalam", page: 1)
 ```
 
 Get the second page of searched authors, with 20 results per page, with a limit of 10 authors -
 
 ```swift 
-try await RRQuotableKit.searchAuthors(for: "kalam", limit: 10, page: 2)
+try await QuoteKit.searchAuthors(for: "kalam", limit: 10, page: 2)
 ```
 
 ## Data Models 
