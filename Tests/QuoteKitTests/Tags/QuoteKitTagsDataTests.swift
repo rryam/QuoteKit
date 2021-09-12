@@ -1,17 +1,17 @@
 //
-//  RRQuotableKitTagsDataTests.swift
-//  RRQuotableKitTagsDataTests
+//  QuoteKitTagsDataTests.swift
+//  QuoteKitTagsDataTests
 //
 //  Created by Rudrank Riyam on 30/08/21.
 //
 
 import XCTest
-@testable import RRQuotableKit
+@testable import QuoteKit
 
-final class RRQuotableKitTagsDataTests: XCTestCase {
+final class QuoteKitTagsDataTests: XCTestCase {
     func testTagsReturnsManyTags() async throws {
         do {
-            let tags = try await RRQuotableKit.tags()
+            let tags = try await QuoteKit.tags()
             let unwrappedTags = try XCTUnwrap(tags)
 
             XCTAssertGreaterThan(unwrappedTags.count, 1)

@@ -1,14 +1,14 @@
 //
-//  RRQuotableKitQuotesURLTests.swift
-//  RRQuotableKitQuotesURLTests
+//  QuoteKitQuotesURLTests.swift
+//  QuoteKitQuotesURLTests
 //
 //  Created by Rudrank Riyam on 30/08/21.
 //
 
 import XCTest
-@testable import RRQuotableKit
+@testable import QuoteKit
 
-final class RRQuotableKitQuotesURLTests: XCTestCase {
+final class QuoteKitQuotesURLTests: XCTestCase {
     let host = QuotableURLHost.production
     
     func testURLForParticularID() {

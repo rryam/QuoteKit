@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import RRQuotableKit
+@testable import QuoteKit
 
 extension QuotableURLHost {
     func expectedURL(with path: String) throws -> URL {

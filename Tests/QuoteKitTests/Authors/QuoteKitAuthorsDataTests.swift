@@ -1,17 +1,17 @@
 //
-//  RRQuotableKitAuthorsDataTests.swift
-//  RRQuotableKitAuthorsDataTests
+//  QuoteKitAuthorsDataTests.swift
+//  QuoteKitAuthorsDataTests
 //
 //  Created by Rudrank Riyam on 30/08/21.
 //
 
 import XCTest
-@testable import RRQuotableKit
+@testable import QuoteKit
 
-final class RRQuotableKitAuthorsDataTests: XCTestCase {
+final class QuoteKitAuthorsDataTests: XCTestCase {
     func testAuthorMatchesParticularID() async throws {
         do {
-            let author = try await RRQuotableKit.author(id: "XYxYtSeixS-o")
+            let author = try await QuoteKit.author(id: "XYxYtSeixS-o")
             let unwrappedAuthor = try XCTUnwrap(author)
             
             XCTAssertEqual(unwrappedAuthor.link, "https://en.wikipedia.org/wiki/Aesop")

@@ -1,14 +1,14 @@
 //
-//  RRQuotableKitRandomQuoteURLTests.swift
-//  RRQuotableKitRandomQuoteURLTests
+//  QuoteKitRandomQuoteURLTests.swift
+//  QuoteKitRandomQuoteURLTests
 //
 //  Created by Rudrank Riyam on 30/08/21.
 //
 
 import XCTest
-@testable import RRQuotableKit
+@testable import QuoteKit
 
-final class RRQuotableKitRandomQuoteURLTests: XCTestCase {
+final class QuoteKitRandomQuoteURLTests: XCTestCase {
     let host = QuotableURLHost.production
     
     func testURLForRandomQuote() {

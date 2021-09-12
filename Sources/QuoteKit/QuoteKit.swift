@@ -1,6 +1,13 @@
+//
+//  QuoteKit.swift
+//  QuoteKit
+//
+//  Created by Rudrank Riyam on 28/08/21.
+//
+
 import Foundation
 
-public struct RRQuotableKit {
+public struct QuoteKit {
     static func execute<Model: Decodable>(with endpoint: QuotableEndpoint) async throws -> Model {
         let url = endpoint.url
         
@@ -12,7 +19,7 @@ public struct RRQuotableKit {
 }
 
 // MARK: - QUOTES APIS
-public extension RRQuotableKit {
+public extension QuoteKit {
     static func quote(id: String) async throws -> Quote? {
         try await execute(with: QuotableEndpoint(.quote(id)))
     }
@@ -92,7 +99,7 @@ public extension RRQuotableKit {
 }
 
 // MARK: - AUTHORS APIS
-public extension RRQuotableKit {
+public extension QuoteKit {
     static func authorImage(with slug: String, size: Int = 700) -> URL {
         QuotableEndpoint(.authorProfile(size, slug), host: .images).url
     }
@@ -129,7 +136,7 @@ public extension RRQuotableKit {
 }
 
 // MARK: - TAGS APIS
-public extension RRQuotableKit {
+public extension QuoteKit {
     static func tags(sortBy: AuthorsAndTagsSortType? = nil,
                      order: QuotableListOrder? = nil) async throws -> Tags? {
         
@@ -148,7 +155,7 @@ public extension RRQuotableKit {
 }
 
 // MARK: - SEARCH APIS
-public extension RRQuotableKit {
+public extension QuoteKit {
     static func searchQuotes(for query: String, limit: Int = 20, page: Int = 1) async throws -> Quotes? {
         try await search(path: .searchQuotes, query: query, limit: limit, page: page)
     }

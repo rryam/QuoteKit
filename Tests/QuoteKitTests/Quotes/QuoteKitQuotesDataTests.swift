@@ -1,17 +1,17 @@
 //
-//  RRQuotableKitQuotesDataTests.swift
-//  RRQuotableKitQuotesDataTests
+//  QuoteKitQuotesDataTests.swift
+//  QuoteKitQuotesDataTests
 //
 //  Created by Rudrank Riyam on 30/08/21.
 //
 
 import XCTest
-@testable import RRQuotableKit
+@testable import QuoteKit
 
-final class RRQuotableKitQuotesDataTests: XCTestCase {
+final class QuoteKitQuotesDataTests: XCTestCase {
     func testQuoteForParticularID() async throws {
         do {
-            let quote = try await RRQuotableKit.quote(id: "2xpHvSOQMD")
+            let quote = try await QuoteKit.quote(id: "2xpHvSOQMD")
             let unwrappedQuote = try XCTUnwrap(quote)
             
             XCTAssertEqual(unwrappedQuote.tags, [.famousQuotes, .inspirational])
@@ -29,7 +29,7 @@ final class RRQuotableKitQuotesDataTests: XCTestCase {
     
     func testQuotesReturnsManyQuotes() async throws {
         do {
-            let quotes = try await RRQuotableKit.quotes()
+            let quotes = try await QuoteKit.quotes()
             let unwrappedQuotes = try XCTUnwrap(quotes)
 
             XCTAssertGreaterThan(unwrappedQuotes.count, 1)
