@@ -9,7 +9,9 @@ import Foundation
 
 public struct QuoteKit {
     static func execute<Model: Decodable>(with endpoint: QuotableEndpoint) async throws -> Model {
-        let (data, _) = try await URLSession.shared.data(from: endpoint.url)
+        let url = endpoint.url
+        
+        let (data, _) = try await URLSession.shared.data(from: url)
         return try JSONDecoder().decode(Model.self, from: data)
     }
 }
