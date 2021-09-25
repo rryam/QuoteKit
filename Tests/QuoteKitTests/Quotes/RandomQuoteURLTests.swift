@@ -1,6 +1,6 @@
 //
-//  QuoteKitRandomQuoteURLTests.swift
-//  QuoteKitRandomQuoteURLTests
+//  RandomQuoteURLTests.swift
+//  RandomQuoteURLTests
 //
 //  Created by Rudrank Riyam on 30/08/21.
 //
@@ -8,7 +8,7 @@
 import XCTest
 @testable import QuoteKit
 
-final class QuoteKitRandomQuoteURLTests: XCTestCase {
+final class RandomQuoteURLTests: XCTestCase {
     let host = QuotableURLHost.production
     
     func testURLForRandomQuote() {
@@ -32,12 +32,12 @@ final class QuoteKitRandomQuoteURLTests: XCTestCase {
     }
     
     func testURLWithEitherOfTheProvidedTagsParameter() {
-        let url = QuotableEndpoint(.randomQuote, queryItems: [.tags([.love, .happiness], .either)]).url
+        let url = QuotableEndpoint(.randomQuote, queryItems: [.tags(["love", "happiness"], .either)]).url
         try XCTAssertEqual(url, host.expectedURL(with: "random?tags=love|happiness"))
     }
     
     func testURLWithAllOfTheProvidedTagsParameter() {
-        let url = QuotableEndpoint(.randomQuote, queryItems: [.tags([.technology, .famousQuotes], .all)]).url
+        let url = QuotableEndpoint(.randomQuote, queryItems: [.tags(["technology", "famous-quotes"], .all)]).url
         try XCTAssertEqual(url, host.expectedURL(with: "random?tags=technology,famous-quotes"))
     }
     

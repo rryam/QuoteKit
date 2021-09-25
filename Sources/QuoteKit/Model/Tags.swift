@@ -23,4 +23,8 @@ public struct Tag: Decodable, Identifiable {
         case v = "__v"
         case quoteCount
     }
+    
+    public var capitalisedName: String {
+        name.capitalized.replacingOccurrences(of: "-", with: " ")
+    }
 }

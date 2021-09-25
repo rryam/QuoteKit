@@ -9,11 +9,7 @@ import Foundation
 
 public struct QuoteKit {
     static func execute<Model: Decodable>(with endpoint: QuotableEndpoint) async throws -> Model {
-        let url = endpoint.url
-        
-        debugPrint("THE URL IS \(url)")
-        
-        let (data, _) = try await URLSession.shared.data(from: url)
+        let (data, _) = try await URLSession.shared.data(from: endpoint.url)
         return try JSONDecoder().decode(Model.self, from: data)
     }
 }
@@ -26,7 +22,7 @@ public extension QuoteKit {
     
     static func quotes(minLength: Int? = nil,
                        maxLength: Int? = nil,
-                       tags: [TagType]? = nil,
+                       tags: [String]? = nil,
                        type: URLQueryItemListType = .all,
                        authors: [String]? = nil,
                        sortBy: QuotesSortType? = nil,
@@ -72,7 +68,7 @@ public extension QuoteKit {
     
     static func randomQuote(minLength: Int? = nil,
                             maxLength: Int? = nil,
-                            tags: [TagType]? = nil,
+                            tags: [String]? = nil,
                             type: URLQueryItemListType = .all,
                             authors: [String]? = nil) async throws -> Quote? {
         

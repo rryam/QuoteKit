@@ -1,6 +1,6 @@
 //
-//  QuoteKitQuotesURLTests.swift
-//  QuoteKitQuotesURLTests
+//  QuotesURLTests.swift
+//  QuotesURLTests
 //
 //  Created by Rudrank Riyam on 30/08/21.
 //
@@ -8,7 +8,7 @@
 import XCTest
 @testable import QuoteKit
 
-final class QuoteKitQuotesURLTests: XCTestCase {
+final class QuotesURLTests: XCTestCase {
     let host = QuotableURLHost.production
     
     func testURLForParticularID() {
@@ -22,12 +22,12 @@ final class QuoteKitQuotesURLTests: XCTestCase {
     }
     
     func testURLWithEitherOfTheProvidedTagsParameter() {
-        let url = QuotableEndpoint(.quotes, queryItems: [.tags([.love, .happiness], .either)]).url
+        let url = QuotableEndpoint(.quotes, queryItems: [.tags(["love", "happiness"], .either)]).url
         try XCTAssertEqual(url, host.expectedURL(with: "quotes?tags=love|happiness"))
     }
     
     func testURLWithAllOfTheProvidedTagsParameter() {
-        let url = QuotableEndpoint(.quotes, queryItems: [.tags([.technology, .famousQuotes], .all)]).url
+        let url = QuotableEndpoint(.quotes, queryItems: [.tags(["technology", "famous-quotes"], .all)]).url
         try XCTAssertEqual(url, host.expectedURL(with: "quotes?tags=technology,famous-quotes"))
     }
     

@@ -16,14 +16,14 @@ public extension URLQueryItem {
         URLQueryItem(name: "minLength", value: String(length))
     }
     
-    static func tags(_ tags: [TagType], _ type: URLQueryItemListType = .all) -> Self {
+    static func tags(_ tags: [String], _ type: URLQueryItemListType = .all) -> Self {
         var tagsValue = ""
         
         switch type {
             case .all:
-                tagsValue = tags.map { $0.rawValue }.joined(separator: ",")
+                tagsValue = tags.map { $0 }.joined(separator: ",")
             case .either:
-                tagsValue = tags.map { $0.rawValue }.joined(separator: "|")
+                tagsValue = tags.map { $0 }.joined(separator: "|")
         }
         
         return URLQueryItem(name: "tags", value: tagsValue)

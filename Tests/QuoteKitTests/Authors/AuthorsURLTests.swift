@@ -1,6 +1,6 @@
 //
-//  QuoteKitAuthorsURLTests.swift
-//  QuoteKitAuthorsURLTests
+//  AuthorsURLTests.swift
+//  AuthorsURLTests
 //
 //  Created by Rudrank Riyam on 30/08/21.
 //
@@ -8,7 +8,7 @@
 import XCTest
 @testable import QuoteKit
 
-final class QuoteKitAuthorsURLTests: XCTestCase {
+final class AuthorsURLTests: XCTestCase {
     let host = QuotableURLHost.production
     
     func testURLForParticularID() {

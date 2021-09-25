@@ -309,7 +309,7 @@ The object represents a single quote. You can get the content of the quote using
 ```swift 
 struct Quote: Decodable, Identifiable {
     var id: String
-    var tags: [TagType]
+    var tags: [String]
     var content: String
     var author: String
     var authorSlug: String
