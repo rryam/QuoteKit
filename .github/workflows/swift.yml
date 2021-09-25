@@ -10,6 +10,11 @@ jobs:
   build:
     runs-on: macos-11.0
     steps:
+    - uses: fwal/setup-swift@v1
+      with:
+        swift-version: "5.1.0"
+    - name: Get swift version
+      run: swift --version # Swift 5.1.0
     - uses: actions/checkout@v2
     - name: Use latest Xcode
       run: sudo xcode-select -s '/Applications/Xcode_13.0.app/Contents/Developer'
