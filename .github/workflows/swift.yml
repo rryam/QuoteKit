@@ -8,9 +8,6 @@ on:
 
 jobs:
   build:
-
-    runs-on: macos-11.0
-
     steps:
     - uses: actions/checkout@v2
     - name: Use latest Xcode
