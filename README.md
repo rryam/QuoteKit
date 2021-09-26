@@ -8,8 +8,6 @@
 
 The QuoteKit is a Swift framework to use the free APIs provided by [Quotable](https://github.com/lukePeavey/quotable) created by [Luke Peavey](https://github.com/lukePeavey). It uses the latest async/await syntax for easy access and contains all the APIs like fetching a random quote, all quotes, authors, tags and searching quotes and authors.
 
-> Note: This framework is still in beta. 
-
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
