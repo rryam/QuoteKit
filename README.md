@@ -26,7 +26,7 @@ The QuoteKit is a Swift framework to use the free APIs provided by [Quotable](ht
 
 As it uses the async/await feature of Swift 5.5, the platforms currently supported are iOS 15.0+, macOS 12.0+, watchOS 8.0+ and tvOS 15.0+. There's a [PR](https://github.com/apple/swift/pull/39051) merged in Swift language related to back deployment, and the framework will be updated accordingly to support the older OSes.
 
-Edit: While waiting and hoping for the backport to happen, the framework now supoprts iOS 13.0+, macOS 11.0+, watchOS 6.0+ and tvOS 13.0+
+Edit: While waiting and hoping for the backport to happen, the framework now supports iOS 13.0+, macOS 11.0+, watchOS 6.0+ and tvOS 13.0+
 
 ## Installation
 
