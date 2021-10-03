@@ -9,6 +9,7 @@ import XCTest
 @testable import QuoteKit
 
 final class QuotesDataTests: XCTestCase {
+    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
     func testQuoteForParticularID() async throws {
         do {
             let quote = try await QuoteKit.quote(id: "2xpHvSOQMD")
@@ -27,6 +28,7 @@ final class QuotesDataTests: XCTestCase {
         }
     }
     
+    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
     func testQuotesReturnsManyQuotes() async throws {
         do {
             let quotes = try await QuoteKit.quotes()
@@ -38,6 +40,7 @@ final class QuotesDataTests: XCTestCase {
          }
     }
     
+    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
     func testQuotesSearchForParticularQuery() async throws {
         do {
             let quotes = try await QuoteKit.searchQuotes(for: "biggest room")

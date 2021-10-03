@@ -9,6 +9,7 @@ import XCTest
 @testable import QuoteKit
 
 final class AuthorsDataTests: XCTestCase {
+    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
     func testAuthorMatchesParticularID() async throws {
         do {
             let author = try await QuoteKit.author(id: "XYxYtSeixS-o")
@@ -25,6 +26,7 @@ final class AuthorsDataTests: XCTestCase {
         }
     }
     
+    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
     func testAuthorsReturnsManyAuthors() async throws {
         do {
             let authors = try await QuoteKit.authors()
@@ -36,6 +38,7 @@ final class AuthorsDataTests: XCTestCase {
         }
     }
     
+    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
     func testAuthorsSearchForParticularQuery() async throws {
         do {
             let authors = try await QuoteKit.searchAuthors(for: "aesop")

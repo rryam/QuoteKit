@@ -24,7 +24,7 @@ public struct QuoteKit {
     static func execute<Model: Decodable>(with endpoint: QuotableEndpoint, completion: @escaping (Result<Model, Error>) -> ()) {
         let url = endpoint.url
         
-        URLSession.shared.dataTask(with: url) { data, _, error in
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -38,10 +38,11 @@ public struct QuoteKit {
             do {
                 let model = try JSONDecoder().decode(Model.self, from: data)
                 completion(.success(model))
-            } catch {
-                completion(.failure(error))
+            } catch let decodingError {
+                completion(.failure(decodingError))
             }
         }
-        .resume()
+        
+        task.resume()
     }
 }
