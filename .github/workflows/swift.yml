@@ -10,9 +10,6 @@ jobs:
   build:
     runs-on: macos-11.0
     steps:
-    - uses: dev1an/setup-swift@swift-5.5
-      with:
-        swift-version: "5.5.0"
     - name: Get swift version
       run: swift --version
     - uses: actions/checkout@v2
