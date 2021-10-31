@@ -9,7 +9,7 @@ import XCTest
 @testable import QuoteKit
 
 final class QuotesDataTests: XCTestCase {
-    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
+    
     func testQuoteForParticularIDAsync() async throws {
         do {
             let quote = try await QuoteKit.quote(id: "2xpHvSOQMD")
@@ -59,7 +59,7 @@ final class QuotesDataTests: XCTestCase {
         XCTAssertEqual(unwrappedQuote.dateModified, "2021-06-18")
     }
     
-    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
+    
     func testQuotesReturnsManyQuotesAsync() async throws {
         do {
             let quotes = try await QuoteKit.quotes()
@@ -95,7 +95,7 @@ final class QuotesDataTests: XCTestCase {
         XCTAssertGreaterThan(unwrappedQuotes.count, 1)
     }
     
-    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
+    
     func testQuotesSearchForParticularQueryAsync() async throws {
         do {
             let quotes = try await QuoteKit.searchQuotes(for: "biggest room")

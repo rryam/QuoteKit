@@ -8,17 +8,17 @@
 import Foundation
 
 public extension QuoteKit {
-    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
+    
     static func quote(id: String) async throws -> Quote? {
         try await execute(with: QuotableEndpoint(.quote(id)))
     }
     
-    @available(iOS 13.0, macOS 11.0, tvOS 13.0, watchOS 6.0, *)
+    
     static func quote(id: String, completion: @escaping (Result<Quote?, Error>) -> ()) {
         execute(with: QuotableEndpoint(.quote(id)), completion: completion)
     }
     
-    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
+    
     static func quotes(minLength: Int? = nil,
                        maxLength: Int? = nil,
                        tags: [String]? = nil,
@@ -42,7 +42,7 @@ public extension QuoteKit {
         return try await execute(with: QuotableEndpoint(.quotes, queryItems: queryItems))
     }
     
-    @available(iOS 13.0, macOS 11.0, tvOS 13.0, watchOS 6.0, *)
+    
     static func quotes(minLength: Int? = nil,
                        maxLength: Int? = nil,
                        tags: [String]? = nil,
@@ -67,7 +67,7 @@ public extension QuoteKit {
         return execute(with: QuotableEndpoint(.quotes, queryItems: queryItems), completion: completion)
     }
     
-    @available(iOS 13.0, macOS 11.0, tvOS 13.0, watchOS 6.0, *)
+    
     static private func quotesParameter(minLength: Int? = nil,
                                         maxLength: Int? = nil,
                                         tags: [String]? = nil,
@@ -110,17 +110,17 @@ public extension QuoteKit {
         return queryItems
     }
     
-    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
+    
     static func quotes() async throws -> Quotes? {
         try await execute(with: QuotableEndpoint(.quotes))
     }
     
-    @available(iOS 13.0, macOS 11.0, tvOS 13.0, watchOS 6.0, *)
+    
     static func quotes(completion: @escaping (Result<Quotes?, Error>) -> ()) {
         execute(with: QuotableEndpoint(.quotes), completion: completion)
     }
     
-    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
+    
     static func randomQuote(minLength: Int? = nil,
                             maxLength: Int? = nil,
                             tags: [String]? = nil,
@@ -136,7 +136,7 @@ public extension QuoteKit {
         return try await execute(with: QuotableEndpoint(.randomQuote, queryItems: queryItems))
     }
     
-    @available(iOS 13.0, macOS 11.0, tvOS 13.0, watchOS 6.0, *)
+    
     static func randomQuote(minLength: Int? = nil,
                             maxLength: Int? = nil,
                             tags: [String]? = nil,
@@ -153,7 +153,7 @@ public extension QuoteKit {
         return execute(with: QuotableEndpoint(.randomQuote, queryItems: queryItems), completion: completion)
     }
     
-    @available(iOS 13.0, macOS 11.0, tvOS 13.0, watchOS 6.0, *)
+    
     static private func randomQuoteParameters(minLength: Int? = nil,
                                               maxLength: Int? = nil,
                                               tags: [String]? = nil,

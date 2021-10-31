@@ -12,7 +12,7 @@ public extension QuoteKit {
         QuotableEndpoint(.authorProfile(size, slug), host: .images).url
     }
     
-    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
+    
     static func author(id: String) async throws -> Author? {
         try await execute(with: QuotableEndpoint(.author(id)))
     }
@@ -21,7 +21,7 @@ public extension QuoteKit {
         execute(with: QuotableEndpoint(.author(id)), completion: completion)
     }
     
-    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
+    
     static func authors(slugs: [String]? = nil,
                         sortBy: AuthorsAndTagsSortType? = nil,
                         order: QuotableListOrder? = nil,

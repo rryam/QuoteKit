@@ -7,13 +7,7 @@
 
 import Foundation
 
-enum QuoteFetchError: Error {
-    case invalidURL
-    case missingData
-}
-
 public struct QuoteKit {
-    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
     static func execute<Model: Decodable>(with endpoint: QuotableEndpoint) async throws -> Model {
         let url = endpoint.url
         

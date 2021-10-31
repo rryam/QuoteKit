@@ -9,7 +9,7 @@ import XCTest
 @testable import QuoteKit
 
 final class QuoteKitTagsDataTests: XCTestCase {
-    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
+    
     func testTagsReturnsManyTags() async throws {
         do {
             let tags = try await QuoteKit.tags()

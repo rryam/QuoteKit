@@ -7,6 +7,8 @@
 
 import Foundation
 
+/// Learnt this way of creating a URLHost from this article - https://www.swiftbysundell.com/articles/testing-networking-logic-in-swift/
+
 struct QuotableURLHost: RawRepresentable {
     var rawValue: String
 }
