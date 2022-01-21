@@ -1,0 +1,13 @@
+workflows:
+  quotekit-test-workflow:
+    environment:
+      xcode: latest
+      vars:
+        SCHEME: "QuoteKit"
+    triggering:
+      events:
+        - push
+    scripts:
+      - name: Test QuoteKit
+        script: |
+          xcodebuild -scheme "$SCHEME" test | xcpretty

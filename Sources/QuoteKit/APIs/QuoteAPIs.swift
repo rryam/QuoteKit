@@ -8,16 +8,14 @@
 import Foundation
 
 public extension QuoteKit {
-    
-    static func quote(id: String) async throws -> Quote? {
-        try await execute(with: QuotableEndpoint(.quote(id)))
-    }
-    
-    
-    static func quote(id: String, completion: @escaping (Result<Quote?, Error>) -> ()) {
-        execute(with: QuotableEndpoint(.quote(id)), completion: completion)
-    }
-    
+  static func quote(id: String) async throws -> Quote {
+    try await execute(with: QuotableEndpoint(.quote(id)))
+  }
+  
+  static func quote(id: String, completion: @escaping (Result<Quote, Error>) -> ()) {
+    execute(with: QuotableEndpoint(.quote(id)), completion: completion)
+  }
+  
     
     static func quotes(minLength: Int? = nil,
                        maxLength: Int? = nil,
