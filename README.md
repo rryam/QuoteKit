@@ -6,7 +6,7 @@
 
 ![Twitter Follow](https://img.shields.io/twitter/follow/rudrankriyam?style=social)
 
-The QuoteKit is a Swift framework to use the free APIs provided by [Quotable](https://github.com/lukePeavey/quotable) created by [Luke Peavey](https://github.com/lukePeavey). It uses the latest async/await syntax for easy access and contains all the APIs like fetching a random quote, all quotes, authors, tags and searching quotes and authors.
+The QuoteKit is a Swift framework to use the free APIs provided by [Quotable](https://github.com/lukePeavey/quotable) created by [Luke Peavey](https://github.com/lukePeavey). It uses the latest async/await syntax for easy access and contains all the APIs like fetching a random quote, all quotes, authors, tags, and searching quotes and authors.
 
 - [Requirements](#requirements)
 - [Installation](#installation)
@@ -24,13 +24,11 @@ The QuoteKit is a Swift framework to use the free APIs provided by [Quotable](ht
 
 ## Requirements
 
-As it uses the async/await feature of Swift 5.5, the platforms currently supported are iOS 15.0+, macOS 12.0+, watchOS 8.0+ and tvOS 15.0+. There's a [PR](https://github.com/apple/swift/pull/39051) merged in Swift language related to back deployment, and the framework will be updated accordingly to support the older OSes.
-
-Edit: While waiting and hoping for the backport to happen, the framework now supports iOS 13.0+, macOS 11.0+, watchOS 6.0+ and tvOS 13.0+
+As it uses the async/await feature of Swift 5.5, the platforms supported are OS 13.0+, macOS 11.0+, watchOS 6.0+, and tvOS 13.0+.
 
 ## Installation
 
-To add QuoteKit in your project, the best way is via the Swift Package Manager. 
+The best way to add QuoteKit to your project is via the Swift Package Manager. 
 
 ```
 dependencies: [
@@ -40,7 +38,7 @@ dependencies: [
 
 ## Usage 
 
-The `struct QuoteKit` contains static methods you can call for fetching the revelant data. For example, to get the list of quotes - 
+The `struct QuoteKit` contains static methods to fetch the relevant data. For example, to get the list of quotes - 
 
 ```swift 
 do {
@@ -51,7 +49,7 @@ do {
 }
 ```
 
-The examples given below are similar to the ones in Quotable's [README.](https://github.com/lukePeavey/quotable/blob/master/README.md)
+The examples given below are similar to Quotable's [README.](https://github.com/lukePeavey/quotable/blob/master/README.md)
 
 ## Random Quote
 
@@ -62,7 +60,7 @@ var randomQuote: Quote?
 randomQuote = try await QuoteKit.randomQuote()
 ```
 
-You can customise the request by adding query parameters like minimum and maximum length of the quote or the tag associated with it. You can also get a random quote by a specific author(s).
+You can customize the request by adding query parameters like the minimum and maximum length of the quote or its tag. You can also get a random quote from a specific author(s).
 
 Few examples:
 
@@ -98,7 +96,7 @@ try await QuoteKit.randomQuote(authors: ["aesop", "stephen-hawking"])
 
 ## List Quotes 
 
-Returns the `Quotes` object based on the given queries from the `/quotes` API. By default, the list contains 20 `Quote` in one page.
+Returns the `Quotes` object based on the given queries from the `/quotes` API. By default, the list contains 20 `Quote` on one page.
 
 ```swift 
 var quotes: Quotes?
@@ -149,7 +147,7 @@ Get all quotes by author, using the author's slug -
 try await QuoteKit.quotes(authors: ["albert-einstein"])
 ```
 
-Get all quotes sorted by author -
+Get all quotes sorted by the author -
 
 ```swift 
 try await QuoteKit.quotes(sortBy: .author)
@@ -172,7 +170,7 @@ quote = try await QuoteKit.quote(id: "2xpHvSOQMD")
 
 ## List Authors
  
- Returns the `Authors` object matching the given queries from the `/authors` API. By default, the list contains 20 `Author` in one page. You can filter multiple authors by providing their slugs in the query parameter.
+ Returns the `Authors` object matching the given queries from the `/authors` API. By default, the list contains 20 `Author` on one page. You can filter multiple authors by providing their slugs in the query parameter.
  
  ```swift 
 var authors: Authors?
@@ -199,7 +197,7 @@ Get all authors, sorted alphabetically by name -
 try await QuoteKit.authors(sortBy: .name)
 ```
 
-Get all authors, sorted by number of quotes in descending order -
+Get all authors sorted by number of quotes in descending order -
 
 ```swift 
 try await QuoteKit.authors(sortBy: .quoteCount, order: .descending)
@@ -228,7 +226,7 @@ author = try await QuoteKit.author(id: "XYxYtSeixS-o")
 
 ## Author Profile Image URL
 
-Returns the image URL for given author slug. You can specify the image size as well. The default image size is 700x700. 
+Returns the image URL for the given author slug. You can specify the image size as well. The default image size is 700x700. 
 
 ```swift 
 var authorImageURL: URL?
@@ -258,7 +256,7 @@ try await QuoteKit.tags(sortBy: .quoteCount, order: .descending)
 
 ## Search Quotes 
 
-Returns the `Quotes` object based on the search query from the `/search/quotes` API. By default, the list contains 20 `Quote` in one page.
+Returns the `Quotes` object based on the search query from the `/search/quotes` API. By default, the list contains 20 `Quote` on one page.
 
 ```swift 
 var quotes: Quotes?
@@ -279,7 +277,7 @@ try await QuoteKit.searchQuotes(for: "love", limit: 10, page: 2)
 
 ## Search Authors 
 
-Returns the `Authors` object based on the search query from the `/search/authors` API. By default, the list contains 20 `Author` in one page.
+Returns the `Authors` object based on the search query from the `/search/authors` API. By default, the list contains 20 `Author` on one page.
 
 ```swift 
 var quotes: Quotes?
