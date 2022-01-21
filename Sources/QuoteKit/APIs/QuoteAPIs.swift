@@ -8,14 +8,9 @@
 import Foundation
 
 public extension QuoteKit {
-  static func quote(id: String) async throws -> Quote {
-    try await execute(with: QuotableEndpoint(.quote(id)))
-  }
-  
-  static func quote(id: String, completion: @escaping (Result<Quote, Error>) -> ()) {
-    execute(with: QuotableEndpoint(.quote(id)), completion: completion)
-  }
-  
+    static func quote(id: String) async throws -> Quote {
+        try await execute(with: QuotableEndpoint(.quote(id)))
+    }
     
     static func quotes(minLength: Int? = nil,
                        maxLength: Int? = nil,
@@ -25,7 +20,7 @@ public extension QuoteKit {
                        sortBy: QuotesSortType? = nil,
                        order: QuotableListOrder? = nil,
                        limit: Int = 20,
-                       page: Int = 1) async throws -> Quotes? {
+                       page: Int = 1) async throws -> Quotes {
         
         let queryItems = quotesParameter(minLength: minLength,
                                          maxLength: maxLength,
@@ -39,32 +34,6 @@ public extension QuoteKit {
         
         return try await execute(with: QuotableEndpoint(.quotes, queryItems: queryItems))
     }
-    
-    
-    static func quotes(minLength: Int? = nil,
-                       maxLength: Int? = nil,
-                       tags: [String]? = nil,
-                       type: URLQueryItemListType = .all,
-                       authors: [String]? = nil,
-                       sortBy: QuotesSortType? = nil,
-                       order: QuotableListOrder? = nil,
-                       limit: Int = 20,
-                       page: Int = 1,
-                       completion: @escaping (Result<Quotes?, Error>) -> ()) {
-        
-        let queryItems = quotesParameter(minLength: minLength,
-                                         maxLength: maxLength,
-                                         tags: tags,
-                                         type: type,
-                                         authors: authors,
-                                         sortBy: sortBy,
-                                         order: order,
-                                         limit: limit,
-                                         page: page)
-        
-        return execute(with: QuotableEndpoint(.quotes, queryItems: queryItems), completion: completion)
-    }
-    
     
     static private func quotesParameter(minLength: Int? = nil,
                                         maxLength: Int? = nil,
@@ -108,22 +77,15 @@ public extension QuoteKit {
         return queryItems
     }
     
-    
-    static func quotes() async throws -> Quotes? {
+    static func quotes() async throws -> Quotes {
         try await execute(with: QuotableEndpoint(.quotes))
     }
-    
-    
-    static func quotes(completion: @escaping (Result<Quotes?, Error>) -> ()) {
-        execute(with: QuotableEndpoint(.quotes), completion: completion)
-    }
-    
     
     static func randomQuote(minLength: Int? = nil,
                             maxLength: Int? = nil,
                             tags: [String]? = nil,
                             type: URLQueryItemListType = .all,
-                            authors: [String]? = nil) async throws -> Quote? {
+                            authors: [String]? = nil) async throws -> Quote {
         
         let queryItems = randomQuoteParameters(minLength: minLength,
                                                maxLength: maxLength,
@@ -133,24 +95,6 @@ public extension QuoteKit {
         
         return try await execute(with: QuotableEndpoint(.randomQuote, queryItems: queryItems))
     }
-    
-    
-    static func randomQuote(minLength: Int? = nil,
-                            maxLength: Int? = nil,
-                            tags: [String]? = nil,
-                            type: URLQueryItemListType = .all,
-                            authors: [String]? = nil,
-                            completion: @escaping (Result<Quote?, Error>) -> ()) {
-        
-        let queryItems = randomQuoteParameters(minLength: minLength,
-                                               maxLength: maxLength,
-                                               tags: tags,
-                                               type: type,
-                                               authors: authors)
-        
-        return execute(with: QuotableEndpoint(.randomQuote, queryItems: queryItems), completion: completion)
-    }
-    
     
     static private func randomQuoteParameters(minLength: Int? = nil,
                                               maxLength: Int? = nil,

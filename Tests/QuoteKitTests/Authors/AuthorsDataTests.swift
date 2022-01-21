@@ -9,7 +9,6 @@ import XCTest
 @testable import QuoteKit
 
 final class AuthorsDataTests: XCTestCase {
-    
     func testAuthorMatchesParticularID() async throws {
         do {
             let author = try await QuoteKit.author(id: "XYxYtSeixS-o")
@@ -26,7 +25,6 @@ final class AuthorsDataTests: XCTestCase {
         }
     }
     
-    
     func testAuthorsReturnsManyAuthors() async throws {
         do {
             let authors = try await QuoteKit.authors()
@@ -38,11 +36,10 @@ final class AuthorsDataTests: XCTestCase {
         }
     }
     
-    
     func testAuthorsSearchForParticularQuery() async throws {
         do {
             let authors = try await QuoteKit.searchAuthors(for: "aesop")
-            let unwrappedAuthor = try XCTUnwrap(authors?.results.first)
+            let unwrappedAuthor = try XCTUnwrap(authors.results.first)
             
             XCTAssertEqual(unwrappedAuthor.link, "https://en.wikipedia.org/wiki/Aesop")
             XCTAssertEqual(unwrappedAuthor.bio, "Aesop (c. 620 – 564 BCE) was a Greek fabulist and storyteller credited with a number of fables now collectively known as Aesop's Fables.")

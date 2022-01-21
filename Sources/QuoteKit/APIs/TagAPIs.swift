@@ -8,25 +8,13 @@
 import Foundation
 
 public extension QuoteKit {
-    
     static func tags(sortBy: AuthorsAndTagsSortType? = nil,
-                     order: QuotableListOrder? = nil) async throws -> Tags? {
+                     order: QuotableListOrder? = nil) async throws -> Tags {
         
         let queryItems = tagsParameters(sortBy: sortBy, order: order)
         
         return try await execute(with: QuotableEndpoint(.tags, queryItems: queryItems))
     }
-    
-    
-    static func tags(sortBy: AuthorsAndTagsSortType? = nil,
-                     order: QuotableListOrder? = nil,
-                     completion: @escaping (Result<Tags?, Error>) -> ()) {
-        
-        let queryItems = tagsParameters(sortBy: sortBy, order: order)
-        
-        return execute(with: QuotableEndpoint(.tags, queryItems: queryItems), completion: completion)
-    }
-    
     
     private static func tagsParameters(sortBy: AuthorsAndTagsSortType? = nil,
                                        order: QuotableListOrder? = nil) -> [URLQueryItem] {

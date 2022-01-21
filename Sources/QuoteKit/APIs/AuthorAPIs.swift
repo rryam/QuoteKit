@@ -12,37 +12,19 @@ public extension QuoteKit {
         QuotableEndpoint(.authorProfile(size, slug), host: .images).url
     }
     
-    
-    static func author(id: String) async throws -> Author? {
+    static func author(id: String) async throws -> Author {
         try await execute(with: QuotableEndpoint(.author(id)))
     }
-    
-    static func author(id: String, completion: @escaping (Result<Author?, Error>) -> ()) {
-        execute(with: QuotableEndpoint(.author(id)), completion: completion)
-    }
-    
     
     static func authors(slugs: [String]? = nil,
                         sortBy: AuthorsAndTagsSortType? = nil,
                         order: QuotableListOrder? = nil,
                         limit: Int = 20,
-                        page: Int = 1) async throws -> Authors? {
+                        page: Int = 1) async throws -> Authors {
         
         let queryItems = authorsParameters(slugs: slugs, sortBy: sortBy, order: order, limit: limit, page: page)
         
         return try await execute(with: QuotableEndpoint(.authors, queryItems: queryItems))
-    }
-    
-    static func authors(slugs: [String]? = nil,
-                        sortBy: AuthorsAndTagsSortType? = nil,
-                        order: QuotableListOrder? = nil,
-                        limit: Int = 20,
-                        page: Int = 1,
-                        completion: @escaping (Result<Authors?, Error>) -> ()) {
-        
-        let queryItems = authorsParameters(slugs: slugs, sortBy: sortBy, order: order, limit: limit, page: page)
-        
-        return execute(with: QuotableEndpoint(.authors, queryItems: queryItems), completion: completion)
     }
     
     private static func authorsParameters(slugs: [String]? = nil,

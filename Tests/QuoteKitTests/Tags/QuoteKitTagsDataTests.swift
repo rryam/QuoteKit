@@ -9,7 +9,6 @@ import XCTest
 @testable import QuoteKit
 
 final class QuoteKitTagsDataTests: XCTestCase {
-    
     func testTagsReturnsManyTags() async throws {
         do {
             let tags = try await QuoteKit.tags()
