@@ -11,4 +11,4 @@ workflows:
     scripts:
       - name: Test QuoteKit
         script: |
-          xcodebuild -scheme $SCHEME -destination $DESTINATION test | xcpretty
+          xcodebuild -scheme "$SCHEME" -destination "$DESTINATION" test | xcpretty
