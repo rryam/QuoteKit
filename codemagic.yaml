@@ -4,10 +4,11 @@ workflows:
       xcode: latest
       vars:
         SCHEME: "QuoteKit"
+        DESTINATION: "platform=iOS Simulator,OS=15.0,name=iPhone 12"
     triggering:
       events:
         - push
     scripts:
       - name: Test QuoteKit
         script: |
-          xcodebuild -scheme "$SCHEME" test | xcpretty
+          xcodebuild -scheme $SCHEME -destination $DESTINATION test | xcpretty
