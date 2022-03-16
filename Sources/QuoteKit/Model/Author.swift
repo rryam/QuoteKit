@@ -46,3 +46,8 @@ extension Author: Equatable {
         lhs.id == rhs.id
     }
 }
+
+extension Author: Hashable {
+    public func hash(into hasher: inout Hasher) {
+    }
+}
