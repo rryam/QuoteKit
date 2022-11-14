@@ -10,7 +10,7 @@ import Foundation
 public typealias Tags = [Tag]
 
 public struct Tag: Identifiable {
-    init(id: String, name: String, dateAdded: String, dateModified: String, quoteCount: Int) {
+    public init(id: String, name: String, dateAdded: String, dateModified: String, quoteCount: Int) {
         self.id = id
         self.name = name
         self.dateAdded = dateAdded
