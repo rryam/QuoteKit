@@ -4,7 +4,7 @@ workflows:
     environment:
       xcode: latest
       vars:
-        SCHEME: QuoteKit
+        XCODE_SCHEME: QuoteKit
         DESTINATION: "platform=iOS Simulator,OS=16.2,name=iPhone 14"
     triggering:
       events:
