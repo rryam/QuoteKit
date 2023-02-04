@@ -1,6 +1,7 @@
 workflows:
   quotekit-workflow:
     name: QuoteKit Building and Testing Workflow
+    instance_type: mac_mini_m1
     environment:
       xcode: latest
       vars:
