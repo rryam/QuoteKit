@@ -1,0 +1,34 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "SwiftDocCPlugin",
+        "repositoryURL": "https://github.com/apple/swift-docc-plugin",
+        "state": {
+          "branch": null,
+          "revision": "10bc670db657d11bdd561e07de30a9041311b2b1",
+          "version": "1.1.0"
+        }
+      },
+      {
+        "package": "SymbolKit",
+        "repositoryURL": "https://github.com/apple/swift-docc-symbolkit",
+        "state": {
+          "branch": null,
+          "revision": "b45d1f2ed151d057b54504d653e0da5552844e34",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "SwiftLintPlugin",
+        "repositoryURL": "https://github.com/lukepistrol/SwiftLintPlugin",
+        "state": {
+          "branch": null,
+          "revision": "f69b412a765396d44dc9f4788a5b79919c1ca9e3",
+          "version": "0.2.2"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,6 +1,6 @@
 //
 //  Quotes.swift
-//  Quotes
+//  QuoteKit
 //
 //  Created by Rudrank Riyam on 28/08/21.
 //
