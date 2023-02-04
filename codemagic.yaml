@@ -1,14 +1,27 @@
 workflows:
-  quotekit-test-workflow:
+  quotekit-workflow:
+    name: QuoteKit Building and Testing Workflow
     environment:
       xcode: latest
       vars:
         SCHEME: "QuoteKit"
-        DESTINATION: "platform=iOS Simulator,OS=15.0,name=iPhone 12"
+        DESTINATION: "platform=iOS Simulator,OS=16.2,name=iPhone 14"
     triggering:
       events:
         - push
     scripts:
-      - name: Test QuoteKit
+      - name: Build Framework
         script: |
-          xcodebuild -scheme "$SCHEME" -destination "$DESTINATION" test | xcpretty
+          xcodebuild \
+            -scheme $XCODE_SCHEME \
+            -destination "$DESTINATION" \
+            -skipPackagePluginValidation \
+            clean build
+      - name: Test Framework
+        script: |
+          set -o pipefail
+          xcodebuild \
+            -scheme $XCODE_SCHEME \
+            -destination "$DESTINATION" \
+            -skipPackagePluginValidation \
+            test | xcpretty --report junit
