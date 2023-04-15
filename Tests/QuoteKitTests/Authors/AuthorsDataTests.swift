@@ -19,7 +19,7 @@ final class AuthorsDataTests: XCTestCase {
             XCTAssertEqual(unwrappedAuthor.name, "Aesop")
             XCTAssertEqual(unwrappedAuthor.slug, "aesop")
             XCTAssertEqual(unwrappedAuthor.description, "Ancient Greek storyteller")
-            XCTAssertEqual(unwrappedAuthor.quoteCount, 2)
+            XCTAssertEqual(unwrappedAuthor.quoteCount, 10)
         } catch {
             XCTFail("Expected author, but failed \(error).")
         }
@@ -46,7 +46,7 @@ final class AuthorsDataTests: XCTestCase {
             XCTAssertEqual(unwrappedAuthor.name, "Aesop")
             XCTAssertEqual(unwrappedAuthor.slug, "aesop")
             XCTAssertEqual(unwrappedAuthor.description, "Ancient Greek storyteller")
-            XCTAssertEqual(unwrappedAuthor.quoteCount, 2)
+            XCTAssertEqual(unwrappedAuthor.quoteCount, 10)
         }
     }
 }
