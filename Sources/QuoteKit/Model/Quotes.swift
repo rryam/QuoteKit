@@ -7,4 +7,7 @@
 
 import Foundation
 
-public typealias Quotes = QuotableItems<Quote>
+/// A typealias for `QuoteItemCollection` with the generic parameter `Quote`.
+///
+/// Use this typealias to create a collection of quotes.
+public typealias Quotes = QuoteItemCollection<Quote>
