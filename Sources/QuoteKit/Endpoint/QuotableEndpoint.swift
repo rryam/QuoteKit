@@ -34,7 +34,7 @@ public struct QuotableEndpoint {
   ///   - path: The path component of the endpoint.
   ///   - queryItems: The query items to include in the URL, if any.
   ///   - host: The host to use for the URL.
-  public init(_ path: QuotableEndpointPath, queryItems: [URLQueryItem]? = nil, host: QuotableURLHost = .production) {
+  init(_ path: QuotableEndpointPath, queryItems: [URLQueryItem]? = nil, host: QuotableURLHost = .production) {
     self.path = path
     self.queryItems = queryItems
     self.host = host
