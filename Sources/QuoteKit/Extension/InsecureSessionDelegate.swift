@@ -9,7 +9,7 @@ import Foundation
 
 /// Custom delegate to bypass SSL validation (for testing only)
 /// This delegate disables SSL certificate validation and should NEVER be used in production.
-class InsecureSessionDelegate: NSObject, URLSessionDelegate {
+final class InsecureSessionDelegate: NSObject, URLSessionDelegate {
 
   func urlSession(
     _ session: URLSession,

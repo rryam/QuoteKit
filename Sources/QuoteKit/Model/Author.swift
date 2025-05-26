@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Author: Identifiable {
+public struct Author: Identifiable, Sendable {
   public var id: String
   public var link: String
   public var bio: String
@@ -51,5 +51,6 @@ extension Author: Equatable {
 
 extension Author: Hashable {
   public func hash(into hasher: inout Hasher) {
+    hasher.combine(id)
   }
 }

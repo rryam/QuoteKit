@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Quote: Identifiable, Equatable {
+public struct Quote: Identifiable, Equatable, Sendable {
   public var id: String
   public var tags: [String]
   public var content: String
@@ -37,5 +37,5 @@ extension Quote: Decodable {
 }
 
 extension Quote {
-  public static var preview = Quote(id: UUID().uuidString, tags: ["wisdom"], content: "Financial freedom is all about doing what you really want and not worry about money at all.", author: "Rudrank Riyam", authorSlug: "rudrank-riyam", length: 61, dateAdded: String(describing: Date()), dateModified: String(describing: Date()))
+  public static let preview = Quote(id: UUID().uuidString, tags: ["wisdom"], content: "Financial freedom is all about doing what you really want and not worry about money at all.", author: "Rudrank Riyam", authorSlug: "rudrank-riyam", length: 61, dateAdded: String(describing: Date()), dateModified: String(describing: Date()))
 }

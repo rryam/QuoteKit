@@ -21,7 +21,7 @@ public typealias Tags = [Tag]
 /// ```
 /// let tag = Tag(id: "1", name: "technology", dateAdded: "2022-04-15T12:00:00Z", dateModified: "2022-04-15T12:00:00Z", quoteCount: 5)
 /// ```
-public struct Tag: Identifiable, Hashable {
+public struct Tag: Identifiable, Hashable, Sendable {
 
   /// The unique identifier for the tag.
   public var id: String
