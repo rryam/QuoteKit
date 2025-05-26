@@ -5,8 +5,9 @@
 //  Created by Rudrank Riyam on 30/08/21.
 //
 
-@testable import QuoteKit
 import XCTest
+
+@testable import QuoteKit
 
 final class RandomQuoteURLTests: XCTestCase {
   private let host = QuotableURLHost.production
@@ -32,12 +33,15 @@ final class RandomQuoteURLTests: XCTestCase {
   }
 
   func testURLWithEitherOfTheProvidedTagsParameter() {
-    let url = QuotableEndpoint(.randomQuote, queryItems: [.tags(["love", "happiness"], .either)]).url
+    let url = QuotableEndpoint(.randomQuote, queryItems: [.tags(["love", "happiness"], .either)])
+      .url
     try XCTAssertEqual(url, host.expectedURL(with: "random?tags=love|happiness"))
   }
 
   func testURLWithAllOfTheProvidedTagsParameter() {
-    let url = QuotableEndpoint(.randomQuote, queryItems: [.tags(["technology", "famous-quotes"], .all)]).url
+    let url = QuotableEndpoint(
+      .randomQuote, queryItems: [.tags(["technology", "famous-quotes"], .all)]
+    ).url
     try XCTAssertEqual(url, host.expectedURL(with: "random?tags=technology,famous-quotes"))
   }
 
@@ -47,7 +51,9 @@ final class RandomQuoteURLTests: XCTestCase {
   }
 
   func testURLForManyAuthors() {
-    let url = QuotableEndpoint(.randomQuote, queryItems: [.authors(["albert-einstein", "ed-cunningham"])]).url
+    let url = QuotableEndpoint(
+      .randomQuote, queryItems: [.authors(["albert-einstein", "ed-cunningham"])]
+    ).url
     try XCTAssertEqual(url, host.expectedURL(with: "random?author=albert-einstein|ed-cunningham"))
   }
 }
