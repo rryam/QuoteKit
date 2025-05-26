@@ -29,29 +29,69 @@ public struct QuoteKit {
 
   // MARK: - Async/Await Execution
 
-  /// Execute a network request using modern async/await syntax
+  /// Execute a network request using modern async/await syntax with automatic fallback
   /// - Parameter endpoint: The QuotableEndpoint to fetch data from
   /// - Returns: Decoded model of the specified type
   /// - Throws: Network or decoding errors
   static internal func execute<Model: Decodable>(
     with endpoint: QuotableEndpoint
   ) async throws -> Model {
+    // Try the configured endpoint first
     do {
-      let (data, response) = try await session.data(from: endpoint.url)
-
-      // Validate HTTP response
-      guard let httpResponse = response as? HTTPURLResponse,
-        200...299 ~= httpResponse.statusCode
-      else {
-        throw QuoteFetchError.invalidResponse
-      }
-
-      // Decode the response
-      let decoder = JSONDecoder()
-      return try decoder.decode(Model.self, from: data)
+      return try await executeRequest(with: endpoint)
     } catch {
-      // Re-throw with more context if needed
-      throw error
+      // If the primary request fails and we're not already using the backup,
+      // try the backup API automatically
+      if endpoint.host.rawValue != "api.quotable.kurokeita.dev" {
+        let backupEndpoint = QuotableEndpoint(
+          endpoint.path,
+          queryItems: endpoint.queryItems,
+          host: .backup
+        )
+
+        do {
+          return try await executeRequest(with: backupEndpoint)
+        } catch {
+          // If backup also fails, throw the original error
+          throw error
+        }
+      } else {
+        // If we were already using backup and it failed, throw the error
+        throw error
+      }
     }
+  }
+
+  /// Execute a single network request
+  /// - Parameter endpoint: The QuotableEndpoint to fetch data from
+  /// - Returns: Decoded model of the specified type
+  /// - Throws: Network or decoding errors
+  private static func executeRequest<Model: Decodable>(
+    with endpoint: QuotableEndpoint
+  ) async throws -> Model {
+    let (data, response) = try await session.data(from: endpoint.url)
+
+    // Validate HTTP response
+    guard let httpResponse = response as? HTTPURLResponse,
+      200...299 ~= httpResponse.statusCode
+    else {
+      throw QuoteFetchError.invalidResponse
+    }
+
+    // Decode the response based on the API type
+    let decoder = JSONDecoder()
+
+    // Handle different response formats
+    if endpoint.host.rawValue == "api.quotable.kurokeita.dev" {
+      // Backup API has different response format
+      if Model.self == Quote.self {
+        let backupResponse = try decoder.decode(BackupQuoteResponse.self, from: data)
+        let quote = Quote(from: backupResponse.quote)
+        return quote as! Model
+      }
+    }
+
+    // Default decoding for original API format
+    return try decoder.decode(Model.self, from: data)
   }
 }

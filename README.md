@@ -18,6 +18,7 @@ Your support helps to keep this project growing!
 
 - [Requirements](#requirements)
 - [Installation](#installation)
+- [Backup API Support](#backup-api-support)
 - [Usage](#usage)
   - [Random Quote](#random-quote)
   - [List Quotes](#list-quotes)
@@ -42,6 +43,69 @@ The best way to add QuoteKit to your project is via the Swift Package Manager.
 dependencies: [
     .package(url: "https://github.com/rudrankriyam/QuoteKit.git")
 ]
+```
+
+## Installation
+
+The best way to add QuoteKit to your project is via the Swift Package Manager. 
+
+```
+dependencies: [
+    .package(url: "https://github.com/rudrankriyam/QuoteKit.git")
+]
+```
+
+->
+
+## Installation
+
+The best way to add QuoteKit to your project is via the Swift Package Manager. 
+
+```
+dependencies: [
+    .package(url: "https://github.com/rudrankriyam/QuoteKit.git")
+]
+```
+
+## Backup API Support
+
+⚠️ **Important**: Due to SSL certificate issues with the original Quotable API servers, QuoteKit now includes backup API support to ensure reliable service.
+
+### Current API Status
+- **Primary APIs**: `api.quotable.io` and `staging.quotable.io` have expired SSL certificates
+- **Backup API**: `api.quotable.kurokeita.dev` is fully functional and compatible
+
+### Using the Backup API
+
+#### Option 1: Enable Backup API (Recommended)
+Set the environment variable to use the working backup API:
+
+```bash
+export QUOTEKIT_USE_BACKUP=1
+```
+
+#### Option 2: Automatic Fallback
+QuoteKit automatically falls back to the backup API if the primary API fails. Your existing code continues to work without changes.
+
+#### Option 3: SSL Bypass for Testing
+For testing purposes only, you can bypass SSL verification:
+
+```bash
+export QUOTEKIT_INSECURE_SSL=1
+```
+
+### Code Examples with Backup API
+
+```swift
+// Your existing code works unchanged
+let quote = try await QuoteKit.randomQuote()
+print(quote.content)
+
+// QuoteKit automatically handles:
+// - API endpoint switching
+// - Response format conversion
+// - SSL certificate issues
+// - Fallback mechanisms
 ```
 
 ## Usage 

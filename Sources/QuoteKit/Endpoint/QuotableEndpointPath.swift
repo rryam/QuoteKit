@@ -48,15 +48,15 @@ public enum QuotableEndpointPath: CustomStringConvertible {
   /// A string representation of the path.
   public var description: String {
     switch self {
-      case .quotes: return "quotes"
-      case .randomQuote: return "random"
-      case .authors: return "authors"
-      case .tags: return "tags"
-      case .quote(let id): return "quotes/\(id)"
-      case .author(let id): return "authors/\(id)"
-      case .authorProfile(let size, let slug): return "profile/\(size)/\(slug).jpg"
-      case .searchQuotes: return "search/quotes"
-      case .searchAuthors: return "search/authors"
+    case .quotes: return "quotes"
+    case .randomQuote: return "quotes/random"
+    case .authors: return "authors"
+    case .tags: return "tags"
+    case .quote(let id): return "quotes/\(id)"
+    case .author(let id): return "authors/\(id)"
+    case .authorProfile(let size, let slug): return "profile/\(size)/\(slug).jpg"
+    case .searchQuotes: return "search/quotes"
+    case .searchAuthors: return "search/authors"
     }
   }
 }

@@ -34,7 +34,10 @@ public struct QuotableEndpoint {
   ///   - path: The path component of the endpoint.
   ///   - queryItems: The query items to include in the URL, if any.
   ///   - host: The host to use for the URL.
-  init(_ path: QuotableEndpointPath, queryItems: [URLQueryItem]? = nil, host: QuotableURLHost = .production) {
+  init(
+    _ path: QuotableEndpointPath, queryItems: [URLQueryItem]? = nil,
+    host: QuotableURLHost = .default
+  ) {
     self.path = path
     self.queryItems = queryItems
     self.host = host
@@ -48,7 +51,15 @@ extension QuotableEndpoint {
     var components = URLComponents()
     components.scheme = "https"
     components.host = host.rawValue
-    components.path = "/" + path.description
+
+    // Handle different path structures for different hosts
+    if host.rawValue == "api.quotable.kurokeita.dev" {
+      // Backup API requires /api/ prefix
+      components.path = "/api/" + path.description
+    } else {
+      // Original APIs use direct path
+      components.path = "/" + path.description
+    }
 
     if let queryItems = queryItems, !queryItems.isEmpty {
       components.queryItems = queryItems
@@ -61,4 +72,3 @@ extension QuotableEndpoint {
     return url
   }
 }
-
