@@ -7,34 +7,51 @@
 
 import Foundation
 
+/// QuoteKit provides a Swift interface to the Quotable API
+/// Uses modern async/await syntax for clean, readable networking code
 public struct QuoteKit {
-  static internal func execute<Model: Decodable>(with endpoint: QuotableEndpoint) async throws -> Model {
-    let (data, _) = try await URLSession.shared.data(from: endpoint.url)
-    return try JSONDecoder().decode(Model.self, from: data)
+
+  // MARK: - Session Management
+
+  /// Returns the appropriate URLSession based on environment configuration
+  /// Uses insecure session if QUOTEKIT_INSECURE_SSL=1 is set (for testing only)
+  static var session: URLSession {
+    if ProcessInfo.processInfo.environment["QUOTEKIT_INSECURE_SSL"] == "1" {
+      return URLSession(
+        configuration: .default,
+        delegate: InsecureSessionDelegate(),
+        delegateQueue: nil
+      )
+    } else {
+      return URLSession.shared
+    }
   }
 
-  static internal func execute<Model: Decodable>(with endpoint: QuotableEndpoint, completion: @escaping (Result<Model, Error>) -> ()) {
-    let url = endpoint.url
+  // MARK: - Async/Await Execution
 
-    let task = URLSession.shared.dataTask(with: url) { data, _, error in
-      if let error = error {
-        completion(.failure(error))
-        return
+  /// Execute a network request using modern async/await syntax
+  /// - Parameter endpoint: The QuotableEndpoint to fetch data from
+  /// - Returns: Decoded model of the specified type
+  /// - Throws: Network or decoding errors
+  static internal func execute<Model: Decodable>(
+    with endpoint: QuotableEndpoint
+  ) async throws -> Model {
+    do {
+      let (data, response) = try await session.data(from: endpoint.url)
+
+      // Validate HTTP response
+      guard let httpResponse = response as? HTTPURLResponse,
+        200...299 ~= httpResponse.statusCode
+      else {
+        throw QuoteFetchError.invalidResponse
       }
 
-      guard let data = data else {
-        completion(.failure(QuoteFetchError.missingData))
-        return
-      }
-
-      do {
-        let model = try JSONDecoder().decode(Model.self, from: data)
-        completion(.success(model))
-      } catch let decodingError {
-        completion(.failure(decodingError))
-      }
+      // Decode the response
+      let decoder = JSONDecoder()
+      return try decoder.decode(Model.self, from: data)
+    } catch {
+      // Re-throw with more context if needed
+      throw error
     }
-
-    task.resume()
   }
 }

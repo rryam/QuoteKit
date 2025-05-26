@@ -10,4 +10,5 @@ import Foundation
 enum QuoteFetchError: Error {
   case invalidURL
   case missingData
+  case invalidResponse
 }
