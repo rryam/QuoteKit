@@ -32,7 +32,7 @@ Your support helps to keep this project growing!
 
 ## Requirements
 
-As it uses the async/await feature of Swift 5.5, the platforms supported are OS 13.0+, macOS 11.0+, watchOS 6.0+, and tvOS 13.0+.
+As it uses the async/await feature of Swift 5.5, the platforms supported are iOS 15.0+, macOS 12.0+, watchOS 8.0+, and tvOS 15.0+.
 
 ## Installation
 
