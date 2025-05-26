@@ -15,7 +15,8 @@ final class AuthorsDataTests: XCTestCase {
             let unwrappedAuthor = try XCTUnwrap(author)
 
             XCTAssertEqual(unwrappedAuthor.link, "https://en.wikipedia.org/wiki/Aesop")
-            XCTAssertEqual(unwrappedAuthor.bio, "Aesop (c. 620 – 564 BCE) was a Greek fabulist and storyteller credited with a number of fables now collectively known as Aesop's Fables.")
+            XCTAssertEqual(unwrappedAuthor.bio, 
+                           "Aesop (c. 620 – 564 BCE) was a Greek fabulist and storyteller credited with a number of fables now collectively known as Aesop's Fables.")
             XCTAssertEqual(unwrappedAuthor.name, "Aesop")
             XCTAssertEqual(unwrappedAuthor.slug, "aesop")
             XCTAssertEqual(unwrappedAuthor.description, "Ancient Greek storyteller")
@@ -42,7 +43,8 @@ final class AuthorsDataTests: XCTestCase {
             let unwrappedAuthor = try XCTUnwrap(authors.results.first)
 
             XCTAssertEqual(unwrappedAuthor.link, "https://en.wikipedia.org/wiki/Aesop")
-            XCTAssertEqual(unwrappedAuthor.bio, "Aesop (c. 620 – 564 BCE) was a Greek fabulist and storyteller credited with a number of fables now collectively known as Aesop's Fables.")
+            XCTAssertEqual(unwrappedAuthor.bio, 
+                           "Aesop (c. 620 – 564 BCE) was a Greek fabulist and storyteller credited with a number of fables now collectively known as Aesop's Fables.")
             XCTAssertEqual(unwrappedAuthor.name, "Aesop")
             XCTAssertEqual(unwrappedAuthor.slug, "aesop")
             XCTAssertEqual(unwrappedAuthor.description, "Ancient Greek storyteller")

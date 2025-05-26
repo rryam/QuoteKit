@@ -9,7 +9,7 @@
 import XCTest
 
 final class QuoteKitTagsURLTests: XCTestCase {
-    let host = QuotableURLHost.production
+    private let host = QuotableURLHost.production
 
     func testURLWithSortParameter() {
         let url = QuotableEndpoint(.tags, queryItems: [.sortBy(.dateModified)]).url

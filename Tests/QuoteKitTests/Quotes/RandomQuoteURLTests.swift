@@ -9,7 +9,7 @@
 import XCTest
 
 final class RandomQuoteURLTests: XCTestCase {
-  let host = QuotableURLHost.production
+  private let host = QuotableURLHost.production
 
   func testURLForRandomQuote() {
     let url = QuotableEndpoint(.randomQuote).url

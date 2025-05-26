@@ -5,11 +5,12 @@
 //  Created by Rudrank Riyam on 30/08/21.
 //
 
-@testable import QuoteKit
 import XCTest
 
+@testable import QuoteKit
+
 final class AuthorsURLTests: XCTestCase {
-  let host = QuotableURLHost.production
+  private let host = QuotableURLHost.production
 
   func testURLForParticularID() {
     let url = QuotableEndpoint(.author("XYxYtSeixS-o")).url
