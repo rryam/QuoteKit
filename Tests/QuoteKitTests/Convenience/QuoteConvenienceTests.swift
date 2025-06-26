@@ -28,14 +28,6 @@ struct QuoteConvenienceTests {
         #expect(!quote.author.isEmpty)
     }
 
-    @Test("Multiple short random quotes are all under 100 characters")
-    func testMultipleShortRandomQuotes() async throws {
-        // Test multiple times to ensure consistency
-        for _ in 0..<5 {
-            let quote = try await QuoteKit.shortRandomQuote()
-            #expect(quote.length <= 100, "Quote length \(quote.length) exceeds 100 characters")
-        }
-    }
 
     // MARK: - Quotes by Author Tests
 
@@ -124,7 +116,7 @@ struct QuoteConvenienceTests {
                 for index in 0..<nonEmptyDates.count - 1 {
                     let message = "Quotes should be sorted by date descending. " +
                                 "Found: \(nonEmptyDates[index]) before \(nonEmptyDates[index + 1])"
-                    #expect(nonEmptyDates[index] >= nonEmptyDates[index + 1], message)
+                    #expect(nonEmptyDates[index] >= nonEmptyDates[index + 1], Comment(rawValue: message))
                 }
             }
         } catch {

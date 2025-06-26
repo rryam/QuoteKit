@@ -127,7 +127,7 @@ struct PaginationHelperTests {
 
       let message = "\(testCase.description): Expected page \(testCase.expectedNext) " +
                    "but got \(String(describing: nextPage))"
-      #expect(nextPage == testCase.expectedNext, message)
+      #expect(nextPage == testCase.expectedNext, Comment(rawValue: message))
     }
   }
 
@@ -172,7 +172,7 @@ struct PaginationHelperTests {
 
       let message = "\(testCase.description): Expected \(String(describing: testCase.expectedNext)) " +
                    "but got \(String(describing: nextPage))"
-      #expect(nextPage == testCase.expectedNext, message)
+      #expect(nextPage == testCase.expectedNext, Comment(rawValue: message))
     }
   }
 
