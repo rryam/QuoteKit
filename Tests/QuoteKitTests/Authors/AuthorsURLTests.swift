@@ -10,7 +10,7 @@ import XCTest
 @testable import QuoteKit
 
 final class AuthorsURLTests: XCTestCase {
-  private let host = QuotableURLHost.production
+  private let host = QuotableURLHost.default
 
   func testURLForParticularID() {
     let url = QuotableEndpoint(.author("XYxYtSeixS-o")).url
