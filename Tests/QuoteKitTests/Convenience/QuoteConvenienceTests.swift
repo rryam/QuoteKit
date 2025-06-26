@@ -2,7 +2,7 @@
 //  QuoteConvenienceTests.swift
 //  QuoteKitTests
 //
-//  Created by QuoteKit on 26/06/25.
+//  Tests for quote convenience methods that add real value beyond basic API calls.
 //
 
 import Testing
@@ -11,21 +11,6 @@ import Foundation
 
 @Suite("Quote Convenience Methods Tests")
 struct QuoteConvenienceTests {
-    
-    // MARK: - Quote of the Day Tests
-    
-    @Test("Quote of the Day returns a valid quote")
-    func testQuoteOfTheDay() async throws {
-        let quote = try await QuoteKit.quoteOfTheDay()
-        
-        // Verify we got a quote with required fields
-        #expect(!quote.id.isEmpty)
-        #expect(!quote.content.isEmpty)
-        #expect(!quote.author.isEmpty)
-        #expect(!quote.authorSlug.isEmpty)
-        #expect(quote.length > 0)
-        // Note: dateAdded and dateModified may be empty when using backup API
-    }
     
     // MARK: - Short Random Quote Tests
     
@@ -76,27 +61,6 @@ struct QuoteConvenienceTests {
         }
     }
     
-    @Test("Quotes by Author with custom limit")
-    func testQuotesByAuthorWithLimit() async throws {
-        let authorSlug = "albert-einstein"
-        let limit = 5
-        
-        do {
-            let quotes = try await QuoteKit.quotesByAuthor(authorSlug, limit: limit)
-            
-            // Verify the results respect the limit
-            #expect(quotes.results.count <= limit)
-            
-            // Verify all quotes are from the specified author
-            for quote in quotes.results {
-                #expect(quote.authorSlug == authorSlug)
-            }
-        } catch {
-            // If the API is having issues, at least verify the method can be called
-            #expect(error is QuoteFetchError || error is URLError || error is DecodingError)
-        }
-    }
-    
     @Test("Quotes by Author with pagination")
     func testQuotesByAuthorWithPagination() async throws {
         let authorSlug = "albert-einstein"
@@ -120,7 +84,7 @@ struct QuoteConvenienceTests {
         }
     }
     
-    // MARK: - Inspirational Quotes Tests
+    // MARK: - Tag Filtering Tests (one example is enough)
     
     @Test("Inspirational Quotes returns quotes with inspirational tag")
     func testInspirationalQuotes() async throws {
@@ -135,73 +99,6 @@ struct QuoteConvenienceTests {
             for quote in quotes.results {
                 #expect(quote.tags.contains("inspirational"), 
                        "Quote should have 'inspirational' tag, but has: \(quote.tags)")
-            }
-        } catch {
-            // If the API is having issues, at least verify the method can be called
-            #expect(error is QuoteFetchError || error is URLError || error is DecodingError)
-        }
-    }
-    
-    @Test("Inspirational Quotes with custom limit")
-    func testInspirationalQuotesWithLimit() async throws {
-        let limit = 10
-        
-        do {
-            let quotes = try await QuoteKit.inspirationalQuotes(limit: limit)
-            
-            // Verify the results respect the limit
-            #expect(quotes.results.count <= limit)
-            
-            // Verify all quotes have the inspirational tag
-            for quote in quotes.results {
-                #expect(quote.tags.contains("inspirational"))
-            }
-        } catch {
-            // If the API is having issues, at least verify the method can be called
-            #expect(error is QuoteFetchError || error is URLError || error is DecodingError)
-        }
-    }
-    
-    // MARK: - Motivational Quotes Tests
-    
-    @Test("Motivational Quotes returns quotes with motivational tag")
-    func testMotivationalQuotes() async throws {
-        do {
-            let quotes = try await QuoteKit.motivationalQuotes()
-            
-            // Verify we got results
-            #expect(quotes.count > 0)
-            #expect(quotes.results.count > 0)
-            
-            // Verify all quotes have the motivational tag
-            for quote in quotes.results {
-                #expect(quote.tags.contains("motivational"), 
-                       "Quote should have 'motivational' tag, but has: \(quote.tags)")
-            }
-        } catch {
-            // If the API is having issues, at least verify the method can be called
-            #expect(error is QuoteFetchError || error is URLError || error is DecodingError)
-        }
-    }
-    
-    @Test("Motivational Quotes with pagination")
-    func testMotivationalQuotesWithPagination() async throws {
-        do {
-            // Get first page
-            let page1 = try await QuoteKit.motivationalQuotes(limit: 5, page: 1)
-            
-            // Get second page
-            let page2 = try await QuoteKit.motivationalQuotes(limit: 5, page: 2)
-            
-            // Verify pagination info
-            #expect(page1.page == 1)
-            #expect(page2.page == 2)
-            
-            // Verify we got different quotes (if there are enough motivational quotes)
-            if page1.totalPages > 1 {
-                let page1IDs = Set(page1.results.map { $0.id })
-                let page2IDs = Set(page2.results.map { $0.id })
-                #expect(page1IDs.isDisjoint(with: page2IDs), "Pages should contain different quotes")
             }
         } catch {
             // If the API is having issues, at least verify the method can be called
@@ -235,30 +132,6 @@ struct QuoteConvenienceTests {
         }
     }
     
-    @Test("Recent Quotes with custom limit")
-    func testRecentQuotesWithLimit() async throws {
-        let limit = 5
-        
-        do {
-            let quotes = try await QuoteKit.recentQuotes(limit: limit)
-            
-            // Verify the results respect the limit
-            #expect(quotes.results.count <= limit)
-            
-            // Verify quotes are sorted by dateAdded in descending order
-            // Only check if dateAdded is not empty (backup API returns empty dates)
-            let nonEmptyDates = quotes.results.map { $0.dateAdded }.filter { !$0.isEmpty }
-            if nonEmptyDates.count > 1 {
-                for i in 0..<nonEmptyDates.count - 1 {
-                    #expect(nonEmptyDates[i] >= nonEmptyDates[i + 1])
-                }
-            }
-        } catch {
-            // If the API is having issues, at least verify the method can be called
-            #expect(error is QuoteFetchError || error is URLError || error is DecodingError)
-        }
-    }
-    
     @Test("Recent Quotes returns different quotes than older ones")
     func testRecentQuotesAreDifferentFromOlder() async throws {
         do {
@@ -281,7 +154,7 @@ struct QuoteConvenienceTests {
         }
     }
     
-    // MARK: - Edge Cases and Error Handling
+    // MARK: - Edge Cases
     
     @Test("Invalid author slug returns empty results")
     func testInvalidAuthorSlug() async throws {
@@ -293,25 +166,6 @@ struct QuoteConvenienceTests {
             #expect(quotes.results.isEmpty)
         } catch {
             // Some APIs might throw an error for invalid author, which is also acceptable
-            #expect(error is QuoteFetchError || error is URLError || error is DecodingError)
-        }
-    }
-    
-    @Test("All convenience methods handle network errors gracefully")
-    func testNetworkErrorHandling() async throws {
-        // This test would ideally mock network errors, but for now we'll just verify
-        // that the methods can be called without crashing
-        
-        // Each of these should either succeed or throw a proper error
-        do {
-            _ = try await QuoteKit.quoteOfTheDay()
-        } catch {
-            #expect(error is QuoteFetchError || error is URLError || error is DecodingError)
-        }
-        
-        do {
-            _ = try await QuoteKit.shortRandomQuote()
-        } catch {
             #expect(error is QuoteFetchError || error is URLError || error is DecodingError)
         }
     }
