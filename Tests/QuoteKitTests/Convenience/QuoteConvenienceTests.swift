@@ -48,8 +48,8 @@ struct QuoteConvenienceTests {
             let quotes = try await QuoteKit.quotesByAuthor(authorSlug)
             
             // Verify we got results
-            #expect(quotes.count > 0)
-            #expect(quotes.results.count > 0)
+            #expect(!quotes.results.isEmpty)
+            #expect(!quotes.results.isEmpty)
             
             // Verify all quotes are from the specified author
             for quote in quotes.results {
@@ -92,8 +92,8 @@ struct QuoteConvenienceTests {
             let quotes = try await QuoteKit.inspirationalQuotes()
             
             // Verify we got results
-            #expect(quotes.count > 0)
-            #expect(quotes.results.count > 0)
+            #expect(!quotes.results.isEmpty)
+            #expect(!quotes.results.isEmpty)
             
             // Verify all quotes have the inspirational tag
             for quote in quotes.results {
@@ -114,16 +114,16 @@ struct QuoteConvenienceTests {
             let quotes = try await QuoteKit.recentQuotes()
             
             // Verify we got results
-            #expect(quotes.count > 0)
-            #expect(quotes.results.count > 0)
+            #expect(!quotes.results.isEmpty)
+            #expect(!quotes.results.isEmpty)
             
             // Verify quotes are sorted by dateAdded in descending order
             // Only check if dateAdded is not empty (backup API returns empty dates)
             let nonEmptyDates = quotes.results.map { $0.dateAdded }.filter { !$0.isEmpty }
             if nonEmptyDates.count > 1 {
-                for i in 0..<nonEmptyDates.count - 1 {
-                    #expect(nonEmptyDates[i] >= nonEmptyDates[i + 1], 
-                           "Quotes should be sorted by date descending. Found: \(nonEmptyDates[i]) before \(nonEmptyDates[i + 1])")
+                for index in 0..<nonEmptyDates.count - 1 {
+                    #expect(nonEmptyDates[index] >= nonEmptyDates[index + 1], 
+                           "Quotes should be sorted by date descending. Found: \(nonEmptyDates[index]) before \(nonEmptyDates[index + 1])")
                 }
             }
         } catch {
@@ -162,7 +162,7 @@ struct QuoteConvenienceTests {
             let quotes = try await QuoteKit.quotesByAuthor("non-existent-author-12345")
             
             // Should return empty results, not throw an error
-            #expect(quotes.count == 0)
+            #expect(quotes.results.isEmpty)
             #expect(quotes.results.isEmpty)
         } catch {
             // Some APIs might throw an error for invalid author, which is also acceptable

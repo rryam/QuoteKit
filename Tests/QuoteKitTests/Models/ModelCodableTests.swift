@@ -326,7 +326,7 @@ struct ModelCodableTests {
         let encodedData = try encoder.encode(collection)
         let decodedCollection = try decoder.decode(QuoteItemCollection<Quote>.self, from: encodedData)
         
-        #expect(decodedCollection.count == 0)
+        #expect(decodedCollection.results.isEmpty)
         #expect(decodedCollection.totalCount == 0)
         #expect(decodedCollection.page == 1)
         #expect(decodedCollection.totalPages == 0)

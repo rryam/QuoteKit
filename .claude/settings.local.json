@@ -4,7 +4,9 @@
       "Bash(swift test)",
       "Bash(rm:*)",
       "Bash(swift build)",
-      "Bash(swift test:*)"
+      "Bash(swift test:*)",
+      "Bash(gh pr create:*)",
+      "Bash(git restore:*)"
     ],
     "deny": []
   }
