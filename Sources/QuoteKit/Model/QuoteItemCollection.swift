@@ -42,7 +42,7 @@ import Foundation
 /// print(collection.totalCount) // Prints "10"
 /// print(collection.results.count) // Prints "5"
 /// ```
-public struct QuoteItemCollection<Item: Decodable & Sendable>: Decodable, Sendable {
+public struct QuoteItemCollection<Item: Codable & Sendable>: Codable, Sendable {
 
   /// The number of items in the collection.
   public var count: Int

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum QuotableListOrder: String {
+public enum QuotableListOrder: String, Sendable {
   case ascending = "asc"
   case descending = "desc"
 }

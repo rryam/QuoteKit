@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum URLQueryItemListType {
+public enum URLQueryItemListType: Sendable {
   case all
   case either
 }

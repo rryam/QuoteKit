@@ -14,7 +14,7 @@ import Foundation
 /// Example usage:
 ///
 ///     let sortType: QuotesSortType = .author
-public enum QuotesSortType: String {
+public enum QuotesSortType: String, Sendable {
 
   /// Sort by the date the quote was added.
   case dateAdded

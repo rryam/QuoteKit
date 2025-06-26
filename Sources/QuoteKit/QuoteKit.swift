@@ -95,3 +95,21 @@ public struct QuoteKit {
     return try decoder.decode(Model.self, from: data)
   }
 }
+
+// MARK: - Pagination Helpers
+
+public extension QuoteKit {
+  /// Checks if there are more pages available in a paginated collection.
+  /// - Parameter collection: Any `QuoteItemCollection` (Quotes or Authors).
+  /// - Returns: `true` if there are more pages, `false` otherwise.
+  static func hasMorePages<T>(_ collection: QuoteItemCollection<T>) -> Bool {
+    collection.page < collection.totalPages
+  }
+  
+  /// Gets the next page number for a paginated collection.
+  /// - Parameter collection: Any `QuoteItemCollection` (Quotes or Authors).
+  /// - Returns: The next page number, or nil if on the last page.
+  static func nextPage<T>(_ collection: QuoteItemCollection<T>) -> Int? {
+    hasMorePages(collection) ? collection.page + 1 : nil
+  }
+}

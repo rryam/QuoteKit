@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Quote: Identifiable, Equatable, Sendable {
+public struct Quote: Identifiable, Equatable, Codable, Sendable {
   public var id: String
   public var tags: [String]
   public var content: String
@@ -17,7 +17,7 @@ public struct Quote: Identifiable, Equatable, Sendable {
   public var dateAdded: String
   public var dateModified: String
 
-  init(
+  public init(
     id: String, tags: [String], content: String, author: String, authorSlug: String, length: Int,
     dateAdded: String, dateModified: String
   ) {
@@ -32,7 +32,7 @@ public struct Quote: Identifiable, Equatable, Sendable {
   }
 }
 
-extension Quote: Decodable {
+extension Quote {
   enum CodingKeys: String, CodingKey {
     case id = "_id"
     case tags, content, author, authorSlug, length, dateAdded, dateModified

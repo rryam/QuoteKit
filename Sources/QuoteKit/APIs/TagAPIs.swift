@@ -8,6 +8,12 @@
 import Foundation
 
 public extension QuoteKit {
+  /// Fetches all available tags with optional sorting.
+  /// - Parameters:
+  ///   - sortBy: Sort tags by a specific field (optional).
+  ///   - order: Sort order - `.ascending` or `.descending` (optional).
+  /// - Returns: An array of `Tag` objects.
+  /// - Throws: An error if the network request fails.
   static func tags(sortBy: AuthorsAndTagsSortType? = nil,
                    order: QuotableListOrder? = nil) async throws -> Tags {
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Author: Identifiable, Sendable {
+public struct Author: Identifiable, Codable, Sendable {
   public var id: String
   public var link: String
   public var bio: String
@@ -33,7 +33,7 @@ public struct Author: Identifiable, Sendable {
   }
 }
 
-extension Author: Decodable {
+extension Author {
   enum CodingKeys: String, CodingKey {
     case link, bio, description
     case id = "_id"

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum AuthorsAndTagsSortType: String {
+public enum AuthorsAndTagsSortType: String, Sendable {
   case dateAdded
   case dateModified
   case name
