@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Author: Identifiable, Codable, Sendable {
+public struct Author: Identifiable, Decodable, Sendable {
   public var id: String
   public var link: String
   public var bio: String

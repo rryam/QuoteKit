@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Quote: Identifiable, Equatable, Codable, Sendable {
+public struct Quote: Identifiable, Equatable, Decodable, Sendable {
   public var id: String
   public var tags: [String]
   public var content: String
