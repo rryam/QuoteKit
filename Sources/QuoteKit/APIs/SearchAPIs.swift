@@ -16,7 +16,7 @@ public extension QuoteKit {
   /// - Returns: A `Quotes` collection containing matching quotes.
   /// - Throws: An error if the network request fails.
   static func searchQuotes(for query: String,
-                           limit: Int = 20,
+                           limit: Int = 10,
                            page: Int = 1) async throws -> Quotes {
     try await search(path: .searchQuotes, query: query, limit: limit, page: page)
   }
@@ -29,14 +29,14 @@ public extension QuoteKit {
   /// - Returns: An `Authors` collection containing matching authors.
   /// - Throws: An error if the network request fails.
   static func searchAuthors(for query: String,
-                            limit: Int = 20,
+                            limit: Int = 10,
                             page: Int = 1) async throws -> Authors {
     try await search(path: .searchAuthors, query: query, limit: limit, page: page)
   }
 
   private static func search<Model: Decodable>(path: QuotableEndpointPath,
                                                query: String,
-                                               limit: Int = 20,
+                                               limit: Int = 10,
                                                page: Int = 1) async throws -> Model {
 
     let queryItems = searchParameters(query: query, limit: limit, page: page)
@@ -45,7 +45,7 @@ public extension QuoteKit {
   }
 
   private static func searchParameters(query: String,
-                                       limit: Int = 20,
+                                       limit: Int = 10,
                                        page: Int = 1) -> [URLQueryItem] {
     var queryItems: [URLQueryItem] = []
 

@@ -37,7 +37,7 @@ public extension QuoteKit {
   static func authors(slugs: [String]? = nil,
                       sortBy: AuthorsAndTagsSortType? = nil,
                       order: QuotableListOrder? = nil,
-                      limit: Int = 20,
+                      limit: Int = 10,
                       page: Int = 1) async throws -> Authors {
 
     let queryItems = authorsParameters(slugs: slugs, sortBy: sortBy, order: order, limit: limit, page: page)
@@ -48,7 +48,7 @@ public extension QuoteKit {
   private static func authorsParameters(slugs: [String]? = nil,
                                         sortBy: AuthorsAndTagsSortType? = nil,
                                         order: QuotableListOrder? = nil,
-                                        limit: Int = 20,
+                                        limit: Int = 10,
                                         page: Int = 1) -> [URLQueryItem] {
 
     var queryItems: [URLQueryItem] = []

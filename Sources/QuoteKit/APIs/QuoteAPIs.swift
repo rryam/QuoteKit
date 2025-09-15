@@ -36,7 +36,7 @@ public extension QuoteKit {
                      authors: [String]? = nil,
                      sortBy: QuotesSortType? = nil,
                      order: QuotableListOrder? = nil,
-                     limit: Int = 20,
+                     limit: Int = 10,
                      page: Int = 1) async throws -> Quotes {
 
     let queryItems = quotesParameter(minLength: minLength,
@@ -59,7 +59,7 @@ public extension QuoteKit {
                                       authors: [String]? = nil,
                                       sortBy: QuotesSortType? = nil,
                                       order: QuotableListOrder? = nil,
-                                      limit: Int = 20,
+                                      limit: Int = 10,
                                       page: Int = 1) -> [URLQueryItem] {
 
     var queryItems: [URLQueryItem] = []
@@ -173,11 +173,11 @@ public extension QuoteKit {
   /// Fetches quotes by a specific author using their slug.
   /// - Parameters:
   ///   - authorSlug: The author's slug identifier.
-  ///   - limit: Number of quotes per page. Defaults to 20.
+  ///   - limit: Number of quotes per page. Defaults to 10.
   ///   - page: Page number to retrieve. Defaults to 1.
   /// - Returns: A `Quotes` collection from the specified author.
   /// - Throws: An error if the network request fails.
-  static func quotesByAuthor(_ authorSlug: String, limit: Int = 20, page: Int = 1) async throws -> Quotes {
+  static func quotesByAuthor(_ authorSlug: String, limit: Int = 10, page: Int = 1) async throws -> Quotes {
     try await quotes(authors: [authorSlug], limit: limit, page: page)
   }
   
@@ -193,21 +193,21 @@ public extension QuoteKit {
   
   /// Fetches inspirational quotes.
   /// - Parameters:
-  ///   - limit: Number of quotes per page. Defaults to 20.
+  ///   - limit: Number of quotes per page. Defaults to 10.
   ///   - page: Page number to retrieve. Defaults to 1.
   /// - Returns: A `Quotes` collection with inspirational tags.
   /// - Throws: An error if the network request fails.
-  static func inspirationalQuotes(limit: Int = 20, page: Int = 1) async throws -> Quotes {
+  static func inspirationalQuotes(limit: Int = 10, page: Int = 1) async throws -> Quotes {
     try await quotes(tags: ["inspirational"], limit: limit, page: page)
   }
   
   /// Fetches motivational quotes.
   /// - Parameters:
-  ///   - limit: Number of quotes per page. Defaults to 20.
+  ///   - limit: Number of quotes per page. Defaults to 10.
   ///   - page: Page number to retrieve. Defaults to 1.
   /// - Returns: A `Quotes` collection with motivational tags.
   /// - Throws: An error if the network request fails.
-  static func motivationalQuotes(limit: Int = 20, page: Int = 1) async throws -> Quotes {
+  static func motivationalQuotes(limit: Int = 10, page: Int = 1) async throws -> Quotes {
     try await quotes(tags: ["motivational"], limit: limit, page: page)
   }
   
