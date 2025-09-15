@@ -44,7 +44,7 @@ import Foundation
 /// ```
 
 /// Response structure from the Quotable API
-private struct APIResponse<Item: Codable>: Decodable {
+private struct APIResponse<Item: Decodable>: Decodable {
   let data: [Item]
   let metadata: Metadata
 
@@ -57,7 +57,7 @@ private struct APIResponse<Item: Codable>: Decodable {
   }
 }
 
-public struct QuoteItemCollection<Item: Codable & Sendable>: Decodable, Sendable {
+public struct QuoteItemCollection<Item: Decodable & Sendable>: Decodable, Sendable {
 
   /// The number of items in the collection.
   public var count: Int
