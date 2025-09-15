@@ -36,10 +36,35 @@ public struct Author: Identifiable, Codable, Sendable {
 extension Author {
   enum CodingKeys: String, CodingKey {
     case link, bio, description
-    case id = "_id"
-    case name, quoteCount, slug
+    case id
+    case name, quoteCount, slug, quotesCount
     case dateAdded, dateModified
     case quotes
+  }
+
+  public init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+
+    id = try container.decode(String.self, forKey: .id)
+    name = try container.decode(String.self, forKey: .name)
+    slug = try container.decode(String.self, forKey: .slug)
+
+    // Handle both quoteCount (original) and quotesCount (backup) field names
+    if let quoteCount = try? container.decode(Int.self, forKey: .quoteCount) {
+      self.quoteCount = quoteCount
+    } else if let quotesCount = try? container.decode(Int.self, forKey: .quotesCount) {
+      self.quoteCount = quotesCount
+    } else {
+      self.quoteCount = 0
+    }
+
+    // Optional fields with defaults
+    bio = (try? container.decode(String.self, forKey: .bio)) ?? ""
+    description = (try? container.decode(String.self, forKey: .description)) ?? ""
+    link = (try? container.decode(String.self, forKey: .link)) ?? ""
+    dateAdded = (try? container.decode(String.self, forKey: .dateAdded)) ?? ""
+    dateModified = (try? container.decode(String.self, forKey: .dateModified)) ?? ""
+    quotes = try? container.decode([Quote].self, forKey: .quotes)
   }
 }
 

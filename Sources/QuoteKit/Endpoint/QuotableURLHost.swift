@@ -32,15 +32,6 @@ extension QuotableURLHost {
   }
 
   static var `default`: Self {
-    // Check environment variable to use backup API
-    if ProcessInfo.processInfo.environment["QUOTEKIT_USE_BACKUP"] == "1" {
-      return backup
-    }
-
-    #if DEBUG
-      return staging
-    #else
-      return production
-    #endif
+    return backup
   }
 }

@@ -42,7 +42,22 @@ import Foundation
 /// print(collection.totalCount) // Prints "10"
 /// print(collection.results.count) // Prints "5"
 /// ```
-public struct QuoteItemCollection<Item: Codable & Sendable>: Codable, Sendable {
+
+/// Response structure from the Quotable API
+private struct APIResponse<Item: Codable>: Decodable {
+  let data: [Item]
+  let metadata: Metadata
+
+  struct Metadata: Decodable {
+    let total: Int
+    let page: Int
+    let lastPage: Int
+    let hasNextPage: Bool
+    let hasPreviousPage: Bool
+  }
+}
+
+public struct QuoteItemCollection<Item: Codable & Sendable>: Decodable, Sendable {
 
   /// The number of items in the collection.
   public var count: Int
@@ -78,5 +93,18 @@ public struct QuoteItemCollection<Item: Codable & Sendable>: Codable, Sendable {
     self.totalPages = totalPages
     self.lastItemIndex = lastItemIndex
     self.results = results
+  }
+
+  // MARK: - Decodable
+
+  public init(from decoder: Decoder) throws {
+    let response = try APIResponse<Item>(from: decoder)
+
+    self.count = response.data.count
+    self.totalCount = response.metadata.total
+    self.page = response.metadata.page + 1 // Convert 0-based to 1-based
+    self.totalPages = response.metadata.lastPage + 1 // Convert 0-based to 1-based
+    self.lastItemIndex = nil // Not provided by API
+    self.results = response.data
   }
 }

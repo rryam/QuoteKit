@@ -13,53 +13,21 @@ public struct QuoteKit {
 
   // MARK: - Session Management
 
-  /// Returns the appropriate URLSession based on environment configuration
-  /// Uses insecure session if QUOTEKIT_INSECURE_SSL=1 is set (for testing only)
+  /// Returns the appropriate URLSession
   static var session: URLSession {
-    if ProcessInfo.processInfo.environment["QUOTEKIT_INSECURE_SSL"] == "1" {
-      return URLSession(
-        configuration: .default,
-        delegate: InsecureSessionDelegate(),
-        delegateQueue: nil
-      )
-    } else {
-      return URLSession.shared
-    }
+    URLSession.shared
   }
 
   // MARK: - Async/Await Execution
 
-  /// Execute a network request using modern async/await syntax with automatic fallback
+  /// Execute a network request using modern async/await syntax
   /// - Parameter endpoint: The QuotableEndpoint to fetch data from
   /// - Returns: Decoded model of the specified type
   /// - Throws: Network or decoding errors
   static internal func execute<Model: Decodable>(
     with endpoint: QuotableEndpoint
   ) async throws -> Model {
-    // Try the configured endpoint first
-    do {
-      return try await executeRequest(with: endpoint)
-    } catch {
-      // If the primary request fails and we're not already using the backup,
-      // try the backup API automatically
-      if endpoint.host.rawValue != "api.quotable.kurokeita.dev" {
-        let backupEndpoint = QuotableEndpoint(
-          endpoint.path,
-          queryItems: endpoint.queryItems,
-          host: .backup
-        )
-
-        do {
-          return try await executeRequest(with: backupEndpoint)
-        } catch {
-          // If backup also fails, throw the original error
-          throw error
-        }
-      } else {
-        // If we were already using backup and it failed, throw the error
-        throw error
-      }
-    }
+    return try await executeRequest(with: endpoint)
   }
 
   /// Execute a single network request
@@ -78,20 +46,8 @@ public struct QuoteKit {
       throw QuoteFetchError.invalidResponse
     }
 
-    // Decode the response based on the API type
+    // Decode the response
     let decoder = JSONDecoder()
-
-    // Handle different response formats
-    if endpoint.host.rawValue == "api.quotable.kurokeita.dev" {
-      // Backup API has different response format
-      if Model.self == Quote.self {
-        let backupResponse = try decoder.decode(BackupQuoteResponse.self, from: data)
-        let quote = Quote(from: backupResponse.quote)
-        return quote as! Model
-      }
-    }
-
-    // Default decoding for original API format
     return try decoder.decode(Model.self, from: data)
   }
 }

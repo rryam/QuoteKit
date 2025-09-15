@@ -34,44 +34,35 @@ public struct Quote: Identifiable, Equatable, Codable, Sendable {
 
 extension Quote {
   enum CodingKeys: String, CodingKey {
-    case id = "_id"
+    case id
     case tags, content, author, authorSlug, length, dateAdded, dateModified
   }
-}
 
-/// Wrapper for backup API response format
-internal struct BackupQuoteResponse: Decodable {
-  let quote: BackupQuote
-}
+  public init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
 
-/// Quote structure from backup API
-internal struct BackupQuote: Decodable {
-  let id: String
-  let content: String
-  let tags: [BackupTag]
-  let author: BackupAuthor
-}
+    id = try container.decode(String.self, forKey: .id)
+    content = try container.decode(String.self, forKey: .content)
+    length = content.count
 
-internal struct BackupTag: Decodable {
-  let name: String
-}
+    // Handle nested author object
+    let authorContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .author)
+    author = try authorContainer.decode(String.self, forKey: .name)
+    authorSlug = try authorContainer.decode(String.self, forKey: .slug)
 
-internal struct BackupAuthor: Decodable {
-  let name: String
-  let slug: String
-}
+    // Handle tags array with nested name property
+    var tagsArray: [String] = []
+    var tagsContainer = try container.nestedUnkeyedContainer(forKey: .tags)
+    while !tagsContainer.isAtEnd {
+      let tagContainer = try tagsContainer.nestedContainer(keyedBy: CodingKeys.self)
+      let tagName = try tagContainer.decode(String.self, forKey: .name)
+      tagsArray.append(tagName)
+    }
+    tags = tagsArray
 
-extension Quote {
-  /// Initialize from backup API response
-  internal init(from backupQuote: BackupQuote) {
-    self.id = backupQuote.id
-    self.content = backupQuote.content
-    self.author = backupQuote.author.name
-    self.authorSlug = backupQuote.author.slug
-    self.tags = backupQuote.tags.map { $0.name }
-    self.length = backupQuote.content.count
-    self.dateAdded = ""
-    self.dateModified = ""
+    // Optional fields with defaults
+    dateAdded = (try? container.decode(String.self, forKey: .dateAdded)) ?? ""
+    dateModified = (try? container.decode(String.self, forKey: .dateModified)) ?? ""
   }
 }
 
