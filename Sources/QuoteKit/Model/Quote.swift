@@ -36,6 +36,7 @@ extension Quote {
   enum CodingKeys: String, CodingKey {
     case id
     case tags, content, author, authorSlug, length, dateAdded, dateModified
+    case name, slug
   }
 
   public init(from decoder: Decoder) throws {
