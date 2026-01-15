@@ -1,4 +1,6 @@
 # QuoteKit
+[![Star History Chart](https://api.star-history.com/svg?repos=rryam/QuoteKit&type=Date)](https://star-history.com/#rryam/QuoteKit&Date)
+
 
 QuoteKit is a Swift framework for accessing quotes from the Quotable API. It provides a clean, async/await interface for fetching quotes, authors, and tags.
 
