@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Quote: Identifiable, Equatable, Decodable, Sendable {
+public struct Quote: Identifiable, Equatable, Codable, Sendable {
   public var id: String
   public var tags: [String]
   public var content: String
@@ -35,6 +35,7 @@ public struct Quote: Identifiable, Equatable, Decodable, Sendable {
 extension Quote {
   enum CodingKeys: String, CodingKey {
     case id
+    case apiID = "_id"
     case tags, content, author, authorSlug, length, dateAdded, dateModified
     case name, slug
   }
@@ -42,28 +43,48 @@ extension Quote {
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    id = try container.decode(String.self, forKey: .id)
+    id = try container.decodeIfPresent(String.self, forKey: .id)
+      ?? container.decode(String.self, forKey: .apiID)
     content = try container.decode(String.self, forKey: .content)
-    length = content.count
+    length = try container.decodeIfPresent(Int.self, forKey: .length) ?? content.count
 
-    // Handle nested author object
-    let authorContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .author)
-    author = try authorContainer.decode(String.self, forKey: .name)
-    authorSlug = try authorContainer.decode(String.self, forKey: .slug)
-
-    // Handle tags array with nested name property
-    var tagsArray: [String] = []
-    var tagsContainer = try container.nestedUnkeyedContainer(forKey: .tags)
-    while !tagsContainer.isAtEnd {
-      let tagContainer = try tagsContainer.nestedContainer(keyedBy: CodingKeys.self)
-      let tagName = try tagContainer.decode(String.self, forKey: .name)
-      tagsArray.append(tagName)
+    if let authorName = try? container.decode(String.self, forKey: .author) {
+      author = authorName
+      authorSlug = try container.decodeIfPresent(String.self, forKey: .authorSlug) ?? ""
+    } else {
+      let authorContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .author)
+      author = try authorContainer.decode(String.self, forKey: .name)
+      authorSlug = try authorContainer.decode(String.self, forKey: .slug)
     }
-    tags = tagsArray
 
-    // Optional fields with defaults
+    if let tagNames = try? container.decode([String].self, forKey: .tags) {
+      tags = tagNames
+    } else {
+      var tagNames: [String] = []
+      var tagsContainer = try container.nestedUnkeyedContainer(forKey: .tags)
+      while !tagsContainer.isAtEnd {
+        let tagContainer = try tagsContainer.nestedContainer(keyedBy: CodingKeys.self)
+        let tagName = try tagContainer.decode(String.self, forKey: .name)
+        tagNames.append(tagName.lowercased().replacingOccurrences(of: " ", with: "-"))
+      }
+      tags = tagNames
+    }
+
     dateAdded = (try? container.decode(String.self, forKey: .dateAdded)) ?? ""
     dateModified = (try? container.decode(String.self, forKey: .dateModified)) ?? ""
+  }
+
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+
+    try container.encode(id, forKey: .id)
+    try container.encode(tags, forKey: .tags)
+    try container.encode(content, forKey: .content)
+    try container.encode(author, forKey: .author)
+    try container.encode(authorSlug, forKey: .authorSlug)
+    try container.encode(length, forKey: .length)
+    try container.encode(dateAdded, forKey: .dateAdded)
+    try container.encode(dateModified, forKey: .dateModified)
   }
 }
 

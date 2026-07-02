@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Author: Identifiable, Decodable, Sendable {
+public struct Author: Identifiable, Codable, Sendable {
   public var id: String
   public var link: String
   public var bio: String
@@ -37,6 +37,7 @@ extension Author {
   enum CodingKeys: String, CodingKey {
     case link, bio, description
     case id
+    case apiID = "_id"
     case name, quoteCount, slug, quotesCount
     case dateAdded, dateModified
     case quotes
@@ -45,7 +46,8 @@ extension Author {
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    id = try container.decode(String.self, forKey: .id)
+    id = try container.decodeIfPresent(String.self, forKey: .id)
+      ?? container.decode(String.self, forKey: .apiID)
     name = try container.decode(String.self, forKey: .name)
     slug = try container.decode(String.self, forKey: .slug)
 
@@ -65,6 +67,21 @@ extension Author {
     dateAdded = (try? container.decode(String.self, forKey: .dateAdded)) ?? ""
     dateModified = (try? container.decode(String.self, forKey: .dateModified)) ?? ""
     quotes = try? container.decode([Quote].self, forKey: .quotes)
+  }
+
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+
+    try container.encode(id, forKey: .id)
+    try container.encode(link, forKey: .link)
+    try container.encode(bio, forKey: .bio)
+    try container.encode(description, forKey: .description)
+    try container.encode(name, forKey: .name)
+    try container.encode(quoteCount, forKey: .quoteCount)
+    try container.encode(slug, forKey: .slug)
+    try container.encode(dateAdded, forKey: .dateAdded)
+    try container.encode(dateModified, forKey: .dateModified)
+    try container.encodeIfPresent(quotes, forKey: .quotes)
   }
 }
 

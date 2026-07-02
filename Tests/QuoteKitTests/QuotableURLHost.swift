@@ -10,7 +10,8 @@ import XCTest
 
 extension QuotableURLHost {
   func expectedURL(with path: String) throws -> URL {
-    let encodedPath = path.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+    let apiPath = rawValue == "api.quotable.kurokeita.dev" ? "api/" + path : path
+    let encodedPath = apiPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
 
     let url = URL(string: "https://" + rawValue + "/" + encodedPath)
     return try XCTUnwrap(url)
