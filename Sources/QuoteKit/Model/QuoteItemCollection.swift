@@ -48,6 +48,11 @@ private struct APIResponse<Item: Decodable>: Decodable {
   let data: [Item]
   let metadata: Metadata
 
+  enum CodingKeys: String, CodingKey {
+    case data
+    case metadata
+  }
+
   struct Metadata: Decodable {
     let total: Int
     let page: Int
@@ -110,7 +115,9 @@ public struct QuoteItemCollection<Item: Decodable & Sendable>: Decodable, Sendab
   // MARK: - Decodable
 
   public init(from decoder: Decoder) throws {
-    if let response = try? APIResponse<Item>(from: decoder) {
+    let responseContainer = try decoder.container(keyedBy: APIResponse<Item>.CodingKeys.self)
+    if responseContainer.contains(.data) || responseContainer.contains(.metadata) {
+      let response = try APIResponse<Item>(from: decoder)
       self.count = response.data.count
       self.totalCount = response.metadata.total
       self.page = response.metadata.page + 1 // Convert 0-based to 1-based
