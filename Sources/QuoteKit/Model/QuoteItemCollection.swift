@@ -95,16 +95,54 @@ public struct QuoteItemCollection<Item: Decodable & Sendable>: Decodable, Sendab
     self.results = results
   }
 
+  enum CodingKeys: String, CodingKey {
+    case count
+    case totalCount
+    case totalCountSnakeCase = "total_count"
+    case page
+    case totalPages
+    case totalPagesSnakeCase = "total_pages"
+    case lastItemIndex
+    case lastItemIndexSnakeCase = "last_item_index"
+    case results
+  }
+
   // MARK: - Decodable
 
   public init(from decoder: Decoder) throws {
-    let response = try APIResponse<Item>(from: decoder)
+    if let response = try? APIResponse<Item>(from: decoder) {
+      self.count = response.data.count
+      self.totalCount = response.metadata.total
+      self.page = response.metadata.page + 1 // Convert 0-based to 1-based
+      self.totalPages = response.metadata.lastPage + 1 // Convert 0-based to 1-based
+      self.lastItemIndex = nil // Not provided by API
+      self.results = response.data
+      return
+    }
 
-    self.count = response.data.count
-    self.totalCount = response.metadata.total
-    self.page = response.metadata.page + 1 // Convert 0-based to 1-based
-    self.totalPages = response.metadata.lastPage + 1 // Convert 0-based to 1-based
-    self.lastItemIndex = nil // Not provided by API
-    self.results = response.data
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+
+    self.count = try container.decode(Int.self, forKey: .count)
+    self.totalCount = try container.decodeIfPresent(Int.self, forKey: .totalCount)
+      ?? container.decode(Int.self, forKey: .totalCountSnakeCase)
+    self.page = try container.decode(Int.self, forKey: .page)
+    self.totalPages = try container.decodeIfPresent(Int.self, forKey: .totalPages)
+      ?? container.decode(Int.self, forKey: .totalPagesSnakeCase)
+    self.lastItemIndex = try container.decodeIfPresent(Int.self, forKey: .lastItemIndex)
+      ?? container.decodeIfPresent(Int.self, forKey: .lastItemIndexSnakeCase)
+    self.results = try container.decode([Item].self, forKey: .results)
+  }
+}
+
+extension QuoteItemCollection: Encodable where Item: Encodable {
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+
+    try container.encode(count, forKey: .count)
+    try container.encode(totalCount, forKey: .totalCount)
+    try container.encode(page, forKey: .page)
+    try container.encode(totalPages, forKey: .totalPages)
+    try container.encodeIfPresent(lastItemIndex, forKey: .lastItemIndex)
+    try container.encode(results, forKey: .results)
   }
 }

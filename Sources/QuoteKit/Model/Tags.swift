@@ -63,6 +63,7 @@ public struct Tag: Identifiable, Hashable, Equatable, Sendable {
 extension Tag: Decodable {
   enum CodingKeys: String, CodingKey {
     case id
+    case apiID = "_id"
     case name, dateAdded, dateModified
     case quoteCount, quotesCount
   }
@@ -70,7 +71,8 @@ extension Tag: Decodable {
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    id = try container.decode(String.self, forKey: .id)
+    id = try container.decodeIfPresent(String.self, forKey: .id)
+      ?? container.decode(String.self, forKey: .apiID)
     name = try container.decode(String.self, forKey: .name)
 
     // Handle both quoteCount (original) and quotesCount (backup) field names

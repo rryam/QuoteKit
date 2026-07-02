@@ -7,6 +7,24 @@
 
 import Foundation
 
+private struct RandomQuoteResponse: Decodable {
+  let quote: Quote
+
+  enum CodingKeys: String, CodingKey {
+    case quote
+  }
+
+  init(from decoder: Decoder) throws {
+    if let quote = try? Quote(from: decoder) {
+      self.quote = quote
+      return
+    }
+
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    quote = try container.decode(Quote.self, forKey: .quote)
+  }
+}
+
 public extension QuoteKit {
   /// Fetches a single quote by its unique identifier.
   /// - Parameter id: The unique identifier of the quote.
@@ -122,7 +140,9 @@ public extension QuoteKit {
                                            type: type,
                                            authors: authors)
 
-    return try await execute(with: QuotableEndpoint(.randomQuote, queryItems: queryItems))
+    let response: RandomQuoteResponse = try await execute(
+      with: QuotableEndpoint(.randomQuote, queryItems: queryItems))
+    return response.quote
   }
 
   static private func randomQuoteParameters(minLength: Int? = nil,
@@ -198,7 +218,7 @@ public extension QuoteKit {
   /// - Returns: A `Quotes` collection with inspirational tags.
   /// - Throws: An error if the network request fails.
   static func inspirationalQuotes(limit: Int = 10, page: Int = 1) async throws -> Quotes {
-    try await quotes(tags: ["inspirational"], limit: limit, page: page)
+    try await quotes(tags: ["Inspirational"], limit: limit, page: page)
   }
   
   /// Fetches motivational quotes.
