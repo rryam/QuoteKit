@@ -26,7 +26,7 @@ Add QuoteKit to your project using Swift Package Manager:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/rudrankriyam/QuoteKit.git", .upToNextMajor(from: "2.0.0"))
+    .package(url: "https://github.com/rudrankriyam/QuoteKit.git", .upToNextMajor(from: "2.1.0"))
 ]
 ```
 
