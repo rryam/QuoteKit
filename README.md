@@ -223,5 +223,3 @@ struct QuoteItemCollection<Item: Decodable>: Decodable {
     let results: [Item]
 }
 ```
-
-[![Star History Chart](https://api.star-history.com/svg?repos=rryam/QuoteKit&type=Date)](https://star-history.com/#rryam/QuoteKit&Date)
